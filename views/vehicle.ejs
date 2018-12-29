@@ -1,0 +1,501 @@
+<%- include('partials/top'); %>
+   <!-- Start Body Content -->
+   <!-- page content -->
+<div class="right_col" role="main">
+    <div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <!-- Vehicle Details -->
+            <article class="single-vehicle-details">
+                <div class="single-vehicle-title">
+                <%if(vehicle.dealership.onHold){%>
+                <span class="badge-premium-listing" style="background: red !important;">On Hold</span>
+                <%}else{%>
+                <span class="badge-premium-listing">For Sale</span>
+                <%}%>
+                    <h2 class="post-title">#<%=vehicle.stockNo%>&nbsp;<%=vehicle.year%>&nbsp;<%=vehicle.make%>&nbsp;<%=vehicle.model%>&nbsp;<%=vehicle.trim%></h2>
+                    <%if(message){%>
+                    <div class="alert alert-success alert-dismissable" style="text-align: center !important;">
+                                  <a class="panel-close close" data-dismiss="alert">×</a>
+                                  <%=message%>
+                                  </div>
+                    <%}%>
+                </div>
+                
+                <span>Added By: <%=vehicle.dealership.addedBy%></span>
+                <div class="single-listing-actions"> 
+                    <div class="btn-group pull-right" role="group">
+                        <%var editors = vehicle.dealership.editors.toUpperCase()%>
+                        <%if(user.role.toUpperCase() == editors || user.role.toUpperCase() == 'ADMIN'){%>
+                            <%if(!vehicle.dealership.sold){%>
+                                <%if(vehicle.dealership.onLot){%>
+                                    <a href="#" data-toggle="modal" data-target="#testdriveModal" class="btn btn-info" title="Start a test drive"><i class="fa fa-calendar"></i> <span>Book a test drive</span></a>
+                                <%}else{%>
+                                    <a href="#" data-toggle="modal" data-target="#checkinModal" class="btn btn-warning" title="Check in vehicle"><i class="fa fa-ban"></i> <span>Check in</span></a>
+                                <%}%>
+                            
+                                <a href="/vehicle/edit/?stockNo=<%=vehicle.stockNo%>" class="btn btn-info" title="Edit Vehicle"><i class="fa fa-edit"></i> <span>Edit Vehicle</span></a>
+                                <a href="#" data-toggle="modal" data-target="#soldModal" class="btn btn-primary" title="Mark as sold"><i class="fa fa-check"></i> <span>Mark as sold</span></a>
+                        <%}%>
+                        <a href="" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" title="Delete Vehicle"><i class="fa fa-trash"></i> <span>Delete Vehicle</span></a>
+                        <%}%>
+                        <a href="javascript:void(0)" onclick="window.print();" class="btn btn-info" title="Print"><i class="fa fa-print"></i> <span>Print</span></a>
+                        </div>
+                        
+                        <%if(vehicle.dealership.price && vehicle.dealership.price !=""){%>
+                        <div class="btn btn-info price" style="color: white !important;">$<%=vehicle.dealership.price%></div>
+                        <%}else{%>
+                        <div class="btn btn-info price" style="color: white !important;">N/A</div>
+                        <%}%>
+                        
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="single-listing-images">
+                            <%if(vehicle.photos.length > 0){%>
+                            <div class="featured-image format-image">
+                                <a href="<%=vehicle.photos[0]%>" target="_blank" rel="noopener noreferrer" data-rel="prettyPhoto[gallery]" class="media-box" id="vehicle-featured-image-href"><img style="width: 600px !important; height: 400px !important;" src="<%=vehicle.photos[0]%>" alt="" id="vehicle-featured-image-img"></a>
+                            </div>
+                            <div class="additional-images">
+                                    <ul class="owl-carousel" data-columns="4" data-pagination="no" data-arrows="yes" data-single-item="no" data-items-desktop="4" data-items-desktop-small="4" data-items-tablet="3" data-items-mobile="3">
+                                        <%for(var i=0; i<vehicle.photos.length; i++){%>
+                                        <li class="item vehicle-image format-image"> <a target="_blank" rel="noopener noreferrer" href="<%=vehicle.photos[i]%>" data-rel="prettyPhoto[gallery]" class="media-box"><img style="width: 200px !important; height: 134px !important;" src="<%=vehicle.photos[i]%>" alt=""></a></li>
+                                        <%}%>
+                                    </ul>
+                            </div>
+                            <%}else{%>
+                            <div class="featured-image format-image">
+                                <a href="/images/placeholderCar.png" target="_blank" rel="noopener noreferrer" data-rel="prettyPhoto[gallery]" class="media-box" id="vehicle-featured-image-href"><img style="width: 600px !important; height: 400px !important;" src="/images/placeholderCar.png" alt="" id="vehicle-featured-image-img"></a>
+                            </div>
+                            <%}%>
+                        </div>
+                      </div>
+                    <div class="col-md-4">
+                        <div class="sidebar-widget widget">
+                            <ul class="list-group">
+                                <li class="list-group-item"> <span class="badge">VIN</span> <%=vehicle.vin%></li>
+                                <li class="list-group-item"> <span class="badge">Year</span> <%=vehicle.year%></li>
+                                <li class="list-group-item"> <span class="badge">Make</span> <%=vehicle.make%></li>
+                                <li class="list-group-item"> <span class="badge">Model</span> <%=vehicle.model%></li>
+                                <li class="list-group-item"> <span class="badge">Trim</span> <%=vehicle.trim%></li>
+                                <li class="list-group-item"> <span class="badge">Body style</span> <%=vehicle.bodyType%></li>
+                                <li class="list-group-item"> <span class="badge">Mileage</span> <%=vehicle.mileage%> KM</li>
+                                <li class="list-group-item"> <span class="badge">Transmission</span> <%=vehicle.transmissionType%></li>
+                                <li class="list-group-item"> <span class="badge">Doors</span> <%=vehicle.numberOfDoors%></li>
+                                <%if(vehicle.specs.model_lkm_city && vehicle.specs.model_lkm_city != ""){%>
+                                <li class="list-group-item"> <span class="badge">Fuel Economy City</span> <%=vehicle.specs.model_lkm_city%></li>
+                                <%}else{%>
+                                <li class="list-group-item"> <span class="badge">Fuel Economy City</span> Not Available</li>
+                                <%}%>
+                                <li class="list-group-item"> <span class="badge">Engine Type</span> <%=vehicle.engineType%></li>
+                                <%if(vehicle.specs.model_engine_power_ps && vehicle.specs.model_engine_power_ps != ""){%>
+                                <li class="list-group-item"> <span class="badge">Power</span> <%=vehicle.specs.model_engine_power_ps%> KW</li>
+                                <%}else{%>
+                                <li class="list-group-item"> <span class="badge">Power</span> Not Available</li>
+                                <%}%>
+                                <%if(vehicle.specs.model_engine_cc && vehicle.specs.model_engine_cc != ""){%>
+                                <li class="list-group-item"> <span class="badge">Engine Size</span> <%=vehicle.specs.model_engine_cc%> cc</li>
+                                <%}else{%>
+                                <li class="list-group-item"> <span class="badge">Engine Size</span> Not Available</li>
+                                <%}%>
+                                <li class="list-group-item"> <span class="badge">Cylinders</span> <%=vehicle.numberOfCylinders%></li>
+                                <li class="list-group-item"> <span class="badge">Fuel type</span> <%=vehicle.fuelType%></li>
+                            </ul>
+                        </div>
+                    </div>
+                   </div>
+                 <div class="spacer-50"></div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="tabs vehicle-details-tabs">
+                            <ul class="nav nav-tabs">
+                                <li class="active"> <a data-toggle="tab" href="#vehicle-specs">Specifications</a></li>
+                                <li> <a data-toggle="tab" href="#vehicle-add-features">Additional Features</a></li>
+                                <li> <a data-toggle="tab" href="#vehicle-location">Location</a> </li>
+                                <li> <a data-toggle="tab" href="#vehicle-overview">Notes</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="vehicle-specs" class="tab-pane fade in active">
+                                    <div class="accordion" id="toggleArea">
+                                          <div class="accordion-group panel">
+                                            <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseOne"> Engine <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
+                                            <div id="collapseOne" class="accordion-body collapse">
+                                                  <div class="accordion-inner">
+                                                    <table class="table-specifications table table-striped table-hover">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Engine type</td>
+                                                                <td><%=vehicle.engineType%></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Displacement</td>
+                                                                <%if(vehicle.specs.model_engine_cc && vehicle.specs.model_engine_cc != ""){%>
+                                                                <td><%=vehicle.specs.model_engine_cc%> cc</td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <%if(vehicle.specs.model_engine_compression && vehicle.specs.model_engine_compression != ""){%>
+                                                            <tr>
+                                                                <td>Compression ratio</td>
+                                                                <td><%=vehicle.specs.model_engine_compression%></td>
+                                                            </tr>
+                                                            <%}%>
+                                                            <tr>
+                                                                <td>Engine position</td>
+                                                                <%if(vehicle.specs.model_engine_position && vehicle.specs.model_engine_position != ""){%>
+                                                                <td><%=vehicle.specs.model_engine_position%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Horsepower SAE net</td>
+                                                                <%if(vehicle.specs.model_engine_power_ps && vehicle.specs.model_engine_power_ps != ""){%>
+                                                                <% var hp = vehicle.specs.model_engine_power_ps * 1.341;%>
+                                                                <td><%=hp%> @ <%=vehicle.specs.model_engine_torque_rmp%> rpm</td>  
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Torque (nm)</td>
+                                                                <%if(vehicle.specs.model_engine_torque_rpm && vehicle.specs.model_engine_torque_rpm != "" && vehicle.specs.model_engine_torque_nm && vehicle.specs.model_engine_torque_nm != ""){%>
+                                                                <td><%=vehicle.specs.model_engine_torque_nm%> @ <%=vehicle.specs.model_engine_torque_rpm%> rpm</td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Engine stroke (mm)</td>
+                                                                <%if(vehicle.specs.model_engine_stroke_mm && vehicle.specs.model_engine_stroke_mm != ""){%>
+                                                                <td><%=vehicle.specs.model_engine_stroke_mm%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Engine bore (mm)</td>
+                                                                <%if(vehicle.specs.model_engine_bore_mm && vehicle.specs.model_engine_bore_mm != ""){%>
+                                                                <td><%=vehicle.specs.model_engine_bore_mm%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Recommended fuel</td>
+                                                                <%if(vehicle.year >= 2012){%>
+                                                                <td>Premium</td>
+                                                                <%}else{%>
+                                                                <td>Regular</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Fuel economy city/highway (L/100 km)
+                                                                <%if(vehicle.specs.model_lkm_city && vehicle.specs.model_lkm_city != "" && vehicle.specs.model_lkm_hwy && vehicle.specs.model_lkm_hwy != ""){%>
+                                                                <td><%=vehicle.specs.model_lkm_city%>/<%=vehicle.specs.model_lkm_hwy%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Curb weight (kg)</td>
+                                                                <%if(vehicle.specs.model_weight_kg && vehicle.specs.model_weight_kg != ""){%>
+                                                                <td><%=vehicle.specs.model_weight_kg%>/<%=vehicle.specs.model_weight_kg%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                        </tbody>
+                                                      </table>
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="accordion-group panel">
+                                            <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseTwo"> Exterior <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
+                                            <div id="collapseTwo" class="accordion-body collapse">
+                                                  <div class="accordion-inner">
+                                                    <table class="table-specifications table table-striped table-hover">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Exterior Color</td>
+                                                                <td><%=vehicle.exteriorColor%></td>
+                                                                
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Wheelbase/overall length (mm)</td>
+                                                                <%if(vehicle.specs.model_wheelbase_mm && vehicle.specs.model_wheelbase_mm != "" && vehicle.specs.model_length_mm && vehicle.specs.model_length_mm != ""){%>
+                                                                <td><%=vehicle.specs.model_wheelbase_mm%>/<%=vehicle.specs.model_length_mm%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Overall width (mm)</td>
+                                                                <%if(vehicle.specs.model_width_mm && vehicle.specs.model_width_mm != ""){%>
+                                                                <td><%=vehicle.specs.model_width_mm%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Overall height (mm)</td>
+                                                                <%if(vehicle.specs.model_height_mm && vehicle.specs.model_height_mm != ""){%>
+                                                                <td><%=vehicle.specs.model_height_mm%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Track (fr/rr) (mm)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Turning circle, curb-to-curb (m)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                        </tbody>
+                                                       </table>
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="accordion-group panel">
+                                            <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseThird"> Interior <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
+                                            <div id="collapseThird" class="accordion-body collapse">
+                                                  <div class="accordion-inner">
+                                                    <table class="table-specifications table table-striped table-hover">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Interior Color</td>
+                                                                <td><%=vehicle.interiorColor%></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Headroom (fr/rr) (mm)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Headroom (fr/rr) with moonroof (mm)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Legroom (fr/rr) (mm)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Shoulder room (fr/rr) (mm)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                        </tbody>
+                                                      </table>
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="accordion-group panel">
+                                            <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseForth"> Capacities <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
+                                            <div id="collapseForth" class="accordion-body collapse">
+                                                  <div class="accordion-inner">
+                                                    <table class="table-specifications table table-striped table-hover">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Seating</td>
+                                                                <td><%=vehicle.seats%></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cargo volume (L)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Passenger volume (L)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total interior volume (L)</td>
+                                                                <td>Not Available</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Fuel tank (L)</td>
+                                                                <%if(vehicle.specs.model_fuel_cap_l && vehicle.specs.model_fuel_cap_l != ""){%>
+                                                                <td><%=vehicle.specs.model_fuel_cap_l%></td>
+                                                                <%}else{%>
+                                                                <td>Not Available</td>
+                                                                <%}%>
+                                                            </tr>
+                                                        </tbody>
+                                                       </table>
+                                                </div>
+                                            </div>
+                                          </div>
+                                      </div>
+                                    <!-- End Toggle --> 
+                                </div>
+                                <div id="vehicle-add-features" class="tab-pane fade">
+                                    <ul class="add-features-list">
+                                    <%if(vehicle.features.length > 0){%>
+                                        <%for(var j=0; j<vehicle.features.length; j++){%>
+                                        <li><i class="fa fa-check"></i><%=vehicle.features[j]%></li>
+                                        <%}%>
+                                    <%}else{%>
+                                        <li><i class="fa fa-close"></i>No additional features specified</li>
+                                    <%}%>
+                                    </ul>
+                                </div>
+                                <div id="vehicle-location" class="tab-pane fade">
+                                <%var loc = vehicle.dealership.locationHistory.length - 1;%>
+                                <iframe width="600" height="450" frameborder="0" style="border:0"
+                                src="https://www.google.com/maps/embed/v1/place?q=<%=vehicle.dealership.locationHistory[loc].addressLine1%>+<%=vehicle.dealership.locationHistory[loc].addressCity%>&key=AIzaSyCdZg1IV2mH3q9TJHwONZxBHldZE6_5Ea4" allowfullscreen></iframe>
+                                </div>
+                                <div id="vehicle-overview" class="tab-pane fade">
+                                    <%for(var i=0; i<vehicle.dealership.notes.length; i++){%>
+                                        <p><%=vehicle.dealership.notes[i]%></p>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spacer-50"></div>
+                       </div>
+                </div>
+            </article>
+            <div class="clearfix"></div>
+            <div class="container" style="display: inline-block !important; width: 500px !important;">
+            <div class="alert alert-info">
+                <span class="glyphicon icon-info"></span> last Modified by <%=vehicle.dealership.lastModifiedBy%> on <%=vehicle.dealership.lastModifiedOn.exactTime%>
+            </div>
+            </div>
+        </div>
+    </div>
+   </div>
+</div>
+
+<!-- Modals -->
+<!-- BOOK TEST DRIVE POPUP -->
+<div class="modal fade" id="testdriveModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Start a test drive</h4>
+            </div>
+            <div class="modal-body">
+            	<p>Make sure you enter the full customer information. You must also enter the last known stop of the test drive. Remember to check in the vehicle when you are done.</p>
+                <p id="testDriveLoading" class="alert alert-info d-none">Starting drive. Please wait...</p>
+                <p id="testDriveError" class="alert alert-danger d-none"></p>
+                <p id="testDriveSuccess" class="alert alert-success d-none"></p>
+                <form>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <input type="text" name="testDriveName" class="form-control" placeholder="Full Name">
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                <input type="email" name="testDriveEmail" class="form-control" placeholder="Email">
+                            </div>
+                      	</div>
+                    	<div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <input type="text" name="testDrivePhone" class="form-control" placeholder="Phone">
+                            </div>
+                      	</div>
+                   	</div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <input type="text" name="testDriveAddressLine1" class="form-control" placeholder="Street Address">
+                            </div>
+                      	</div>
+                       </div>
+                       <div class="row">
+                       <div class="col-md-12">
+                           <div class="input-group">
+                               <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                               <input type="text" name="testDriveAddressCity" class="form-control" placeholder="City">
+                           </div>
+                         </div>
+                      </div>
+             		<input type="submit" id="testDriveSubmitButton" class="btn btn-primary pull-right" value="Start Drive">
+                    <label class="btn-block">Preferred Contact</label>
+                    <label class="checkbox-inline"><input name="preferredContactEmail" type="checkbox"> Email</label>
+                    <label class="checkbox-inline"><input name="preferredContactPhone" type="checkbox"> Phone</label>
+                </form>
+           	</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Check In Modal -->
+<div class="modal fade" id="checkinModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Check in Vehicle</h4>
+            </div>
+            <div class="modal-body">
+                <p id="checkinInfo" class="alert alert-info d-none">Checking in. Please wait...</p>
+                <p>Is this vehicle on the Autotrust lot?</p>
+                <hr>
+                <p><strong>WARNING:</strong> A vehicle must be on the AutoTrust lot before being checked in</p>
+                <button type="submit" id="checkInConfirmation" class="btn btn-primary pull-right">Check in</button>
+                <br>
+                <br>
+                
+             </div>
+               
+        </div>
+    </div>
+</div>
+
+<!-- Sold Modal -->
+<div class="modal fade" id="soldModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Sell Vehicle</h4>
+            </div>
+            <div class="modal-body">
+                <p id="soldInfo" class="alert alert-info d-none">Marking vehicle as "Sold". Please wait...</p>
+                <p>Are you about to sell this vehicle?</p>
+                <hr>
+                <p><strong>WARNING:</strong> Make sure that the vehicle has actually been sold before you continue. This action cannot be undone.</p>
+                
+                <button type="submit" id="soldConfirmation" class="btn btn-primary pull-right">Sell</button>&nbsp;
+                <button id="soldClose" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                <br>
+                <br>
+                
+             </div>
+               
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Check in Vehicle</h4>
+            </div>
+            <div class="modal-body">
+                <p id="deleteInfo" class="alert alert-info d-none">Deleting vehicle...Please wait....</p>
+                <p>Are you sure you want to delete this vehicle permanently?</p>
+                <hr>
+                <p><strong>WARNING:</strong> Be careful. This action cannot be undone. Type "DELETE" to continue.</p>
+                <strong>Confirmation Text:</strong> <input  style="border-radius: 0.5em; border-color: red" id="deleteConfirmText" type="text">
+                <button type="submit" id="deleteConfirmation" class="btn btn-danger pull-right" disabled>Delete</button>&nbsp;
+                <br>
+                <br>
+                
+             </div>
+               
+        </div>
+    </div>
+</div>
+<!-- End Body Content -->
+<%- include('partials/bottom'); %>

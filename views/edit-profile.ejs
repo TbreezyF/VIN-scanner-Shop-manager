@@ -1,0 +1,97 @@
+<%- include('partials/top'); %>
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <!-- Start Body Content -->
+    <div class="main" role="main">
+            <div class="container">
+            <h1>Edit Profile</h1>
+            <hr>
+            <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                <%if(user.profilePic && user.profilePic != ''){%>
+                <img src="<%=user.profilePic%>" class="img-circle" alt="avatar" id="profile-photo" style="max-width: 100px !important; max-height: 100px !important;">
+                <%}else{%>
+                <img src="/images/img.png" class="img-circle" alt="avatar" id="profile-photo" style="max-width: 100px !important; max-height: 100px !important;">
+                <%}%>
+                <h6>Upload a different photo  (1MB max.)</h6>
+                
+                <input type="file" class="form-control" onchange='handleProfilePhotos(this.files)' accept="image/*">
+                </div>
+            </div>
+            
+            <!-- edit form column -->
+            <div class="col-md-9 personal-info" id="edit-personal-info">
+                <div class="alert alert-danger alert-dismissable d-none" id="update-profile-error">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                Some info you entered is invalid. Only numbers and alphabets are allowed.
+                </div>
+                <div class="alert alert-success alert-dismissable d-none" id="update-profile-success">
+                <a class="panel-close close" data-dismiss="alert">×</a> 
+                Your profile was updated successfully.
+                </div>
+                
+                <h3>Personal info</h3>
+                
+                <form class="form-horizontal" role="form" id="update-profile">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">First name:</label>
+                    <div class="col-lg-8">
+                    <input name="firstName" class="form-control" type="text" value="<%=user.firstName%>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Last name:</label>
+                    <div class="col-lg-8">
+                    <input name="lastName" class="form-control" type="text" value="<%=user.lastName%>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Email:</label>
+                    <div class="col-lg-8">
+                    <input name="emailAddress" class="form-control" type="text" value="<%=user.emailAddress%>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Username:</label>
+                    <div class="col-md-8">
+                    <input name="userName" class="form-control" type="text" value="<%=user.userName%>" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Password:</label>
+                    <div class="col-md-8">
+                    <input name="pass" class="form-control" type="password" value="11111122333">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Confirm password:</label>
+                    <div class="col-md-8">
+                    <input name="re_pass" class="form-control" type="password" value="11111122333">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="about">About yourself:</label>
+                    <div class="col-md-8">
+                    <textarea name="about" class="form-control" rows = "5" id="about"></textarea>
+                    </div>
+                    <script> var aboutUser = "<%=user.about%>"; document.getElementById('about').value = "<%=user.about%>";</script>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary" value="Save Changes" id="update-profile-submit">SAVE CHANGES</button>
+                    <span></span>
+                    <button type="reset" class="btn btn-default" value="Reset" id="reset-update-profile">RESET</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        <hr>
+    </div>
+</div>
+<%- include('partials/bottom'); %>

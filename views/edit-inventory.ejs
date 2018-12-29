@@ -1,0 +1,743 @@
+<%- include('partials/top'); %>
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <!-- Start Body Content -->
+<div class="main" role="main">
+<div id="content" class="content full">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 listing-form-wrapper">
+                <!-- SIDEBAR -->
+                <div class="listing-form-steps-wrapper tbssticky">
+                   <!-- AD LISTING PROGRESS BAR 
+                    <div class="listing-form-progress">
+                        <div class="progress-label"> <span>Vehicle Data Completeness</span> </div>
+                        <div class="progress progress-striped">
+                            <div class="progress-bar progress-bar-primary" data-appear-progress-animation=""></div>
+                          </div>
+                    </div> -->
+                    <!-- AD LISTING FORM STEPS -->
+                    <ul class="listing-form-steps">
+                        <li class="active" data-target="#listing-add-form-one" data-toggle="tab">
+                            <a href="#">
+                                <span class="step-state"></span>
+                                <span class="step-icon"><i class="fa fa-car"></i></span>
+                                <strong class="step-title">New Inventory</strong>
+                                <span class="step-desc">Scan VIN or enter vehicle details</span>
+                            </a>
+                        </li>
+                        <li data-target="#listing-add-form-two" data-toggle="tab">
+                            <a href="#">
+                                <span class="step-state"></span>
+                                <span class="step-icon"><i class="fa fa-list-alt"></i></span>
+                                <strong class="step-title">Select Features</strong>
+                                <span class="step-desc">Select features of the vehicle</span>
+                            </a>
+                        </li>
+                        <li data-target="#listing-add-form-three" data-toggle="tab">
+                            <a href="#">
+                                <span class="step-state"></span>
+                                <span class="step-icon"><i class="fa fa-edit"></i></span>
+                                <strong class="step-title">Add details</strong>
+                                <span class="step-desc">Mileage, color and more.</span>
+                            </a>
+                        </li>
+                        <li data-target="#listing-add-form-four" data-toggle="tab">
+                            <a href="#">
+                                <span class="step-state"></span>
+                                <span class="step-icon"><i class="fa fa-image"></i></span>
+                                <strong class="step-title">Add photos &amp; comments</strong>
+                                <span class="step-desc">Add some pics &amp; description</span>
+                            </a>
+                        </li>
+                        <li data-target="#listing-add-form-five" data-toggle="tab">
+                            <a href="#">
+                                <span class="step-state"></span>
+                                <span class="step-icon"><i class="fa fa-shopping-cart"></i></span>
+                                <strong class="step-title">Publish</strong>
+                                <span class="step-desc">Save vehicle to database</span>
+                            </a>
+                        </li>
+                    </ul>
+                   </div>
+            </div>
+            <div class="d-none" id="listing-add-form-loader" style="margin-left: 55% !important; margin-top: 35% !important;">
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="col-md-8 col-sm-8" id="listing-add-form-content-js">
+                <!-- AD LISTING FORM -->
+                 <form class="listing-add-form" id="vehicle-addition">
+                    <section class="listing-form-content">
+                    
+                        <!-- AD LISTING FORM STEP ONE -->
+                          <div id="listing-add-form-one" class="tab-pane fade in active">
+                            <h3>Enter your vehicle details</h3>
+                            <div class="lighter"><p>Vehicles can be added to the inventory by scanning a VIN number barcode or by entering it manually.</p></div>
+                            <div class="spacer-10"></div>
+                            <div class="tabs listing-step-tabs">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"> <a data-toggle="tab" href="#searchvehicle" aria-controls="searchvehicle" role="tab">Scan Vehicle VIN</a></li>
+                                    <li> <a data-toggle="tab" href="#addcustom" aria-controls="addcustom" role="tab">Add custom vehicle details</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <!-- VEHICLE SEARCH AD LISTING -->
+                                    <div id="searchvehicle" class="tab-pane fade in active">
+                                        <div class="alert alert-warning fade in">
+                                            <strong>Scan</strong> the VIN Number barcode to start or enter vehicle details on the next tab.
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="finded-results">
+                                                    <!--START BARCODE SCANNER HTML-->
+                                                        <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="input-group" style="min-width:350px !important;">
+                                                                <input name="scanner_input" id="scanner_input" class="form-control" placeholder="SCAN VIN BARCODE" type="text" disabled/> 
+                                                                <div class="input-group-btn"> 
+                                                                    <button id="scanner-button" class="btn btn-primary" type="button" data-toggle="modal" data-target="#livestream_scanner">START
+                                                                        <i class="fa fa-barcode"></i>
+                                                                    </button> 
+                                                                </div>
+                                                            </div><!-- /input-group -->
+                                                        </div><!-- /.col-lg-6 -->
+                                                        </div><!-- /.row -->
+                                                        <div class="modal" id="livestream_scanner">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title">VIN Number Scanner</h4>
+                                                                </div>
+                                                                <div class="modal-body" style="position: static">
+                                                                    <div id="interactive" class="viewport"></div>
+                                                                    <div class="error"></div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <label class="btn btn-default pull-left">
+                                                                        <i class="fa fa-camera"></i> Use photo library
+                                                                        <input name="vin_scan_photo_library" type="file" accept="image/*" capture="camera" class="hidden" />
+                                                                    </label>
+                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div><!-- /.modal-content -->
+                                                        </div><!-- /.modal-dialog -->
+                                                        </div><!-- /.modal -->
+                                                        <!--END BARCODE SCANNER HTML-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- CUSTOM VEHICLE LISTING -->
+                                    <div id="addcustom" class="tab-pane fade">
+                                    <p class="alert alert-danger d-none inventory-submit-error" id="listing-add-form-one-error" style="text-align: center !important;">Some required fields are invalid or missing</p>
+                                        <div class="alert alert-warning fade in">
+                                            Enter all vehicle details. Required fields are marked (*)
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Enter VIN number*</label>
+                                                <div class="input-group" id="manual-vin-div">
+                                                <input name="manual_vin_number" type="text" id="manual-vin-number" class="form-control" placeholder="VIN number*" required>
+                                                <span class="input-group-btn"> 
+                                                    <button id="manual-vin-autofill" class="btn btn-primary" type="button">Autofill
+                                                    </button> 
+                                                </span>
+                                                </div>
+                                                <label>Select Manufacture Year*</label>
+                                                <select name="Vehicle Year" class="form-control selectpicker" required>
+                                                    <option value="">Select</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2016">2016</option>
+                                                    <option value="2015">2015</option>
+                                                    <option value="2014">2014</option>
+                                                    <option value="2013">2013</option>
+                                                    <option value="2012">2012</option>
+                                                    <option value="2011">2011</option>
+                                                    <option value="2010">2010</option>
+                                                    <option value="2009">2009</option>
+                                                    <option value="2008">2008</option>
+                                                    <option value="2007">2007</option>
+                                                    <option value="2006">2006</option>
+                                                    <option value="2005">2005</option>
+                                                    <option value="2004">2004</option>
+                                                    <option value="2003">2003</option>
+                                                    <option value="2002">2002</option>
+                                                    <option value="2001">2001</option>
+                                                    <option value="2000">2000</option>
+                                                    <option value="1999">1999</option>
+                                                    <option value="1998">1998</option>
+                                                    <option value="1997">1997</option>
+                                                    <option value="1996">1996</option>
+                                                    <option value="1995">1995</option>
+                                                    <option value="1994">1994</option>
+                                                    <option value="1993">1993</option>
+                                                    <option value="1992">1992</option>
+                                                    <option value="1991">1991</option>
+                                                    <option value="1990">1990</option>
+                                                    <option value="1989">1989</option>
+                                                    <option value="1988">1988</option>
+                                                    <option value="1987">1987</option>
+                                                    <option value="1986">1986</option>
+                                                    <option value="1985">1985</option>
+                                                    <option value="1984">1984</option>
+                                                    <option value="1983">1983</option>
+                                                    <option value="1982">1982</option>
+                                                    <option value="1981">1981</option>
+                                                    <option value="1980">1980</option>
+                                                    <option value="1979">1979</option>
+                                                    <option value="1978">1978</option>
+                                                    <option value="1977">1977</option>
+                                                    <option value="1976">1976</option>
+                                                    <option value="1975">1975</option>
+                                                    <option value="1974">1974</option>
+                                                    <option value="1973">1973</option>
+                                                    <option value="1972">1972</option>
+                                                    <option value="1971">1971</option>
+                                                    <option value="1970">1970</option>
+                                                    <option value="1969">1969</option>
+                                                    <option value="1968">1968</option>
+                                                    <option value="1967">1967</option>
+                                                    <option value="1966">1966</option>
+                                                    <option value="1965">1965</option>
+                                                    <option value="1964">1964</option>
+                                                    <option value="1963">1963</option>
+                                                    <option value="1962">1962</option>
+                                                    <option value="1961">1961</option>
+                                                    <option value="1960">1960</option>
+                                                    <option value="1959">1959</option>
+                                                    <option value="1958">1958</option>
+                                                    <option value="1957">1957</option>
+                                                    <option value="1956">1956</option>
+                                                    <option value="1955">1955</option>
+                                                    <option value="1954">1954</option>
+                                                    <option value="1953">1953</option>
+                                                    <option value="1952">1952</option>
+                                                    <option value="1951">1951</option>
+                                                    <option value="1950">1950</option>
+                                                    <option value="1949">1949</option>
+                                                    <option value="1948">1948</option>
+                                                    <option value="1947">1947</option>
+                                                    <option value="1946">1946</option>
+                                                    <option value="1945">1945</option>
+                                                    <option value="1944">1944</option>
+                                                    <option value="1943">1943</option>
+                                                    <option value="1942">1942</option>
+                                                    <option value="1941">1941</option>
+                                                    <option value="1940">1940</option>
+                                                    <option value="1939">1939</option>
+                                                    <option value="1938">1938</option>
+                                                    <option value="1937">1937</option>
+                                                    <option value="1936">1936</option>
+                                                    <option value="1935">1935</option>
+                                                    <option value="1934">1934</option>
+                                                    <option value="1933">1933</option>
+                                                    <option value="1932">1932</option>
+                                                    <option value="1931">1931</option>
+                                                    <option value="1930">1930</option>
+                                                    <option value="1929">1929</option>
+                                                    <option value="1928">1928</option>
+                                                    <option value="1927">1927</option>
+                                                    <option value="1926">1926</option>
+                                                    <option value="1925">1925</option>
+                                                    <option value="1924">1924</option>
+                                                    <option value="1923">1923</option>
+                                                    <option value="1922">1922</option>
+                                                    <option value="1921">1921</option>
+                                                    <option value="1920">1920</option>
+                                                    <option value="1919">1919</option>
+                                                    <option value="1918">1918</option>
+                                                    <option value="1917">1917</option>
+                                                    <option value="1916">1916</option>
+                                                    <option value="1915">1915</option>
+                                                    <option value="1914">1914</option>
+                                                    <option value="1913">1913</option>
+                                                    <option value="1912">1912</option>
+                                                    <option value="1911">1911</option>
+                                                    <option value="1910">1910</option>
+                                                    <option value="1909">1909</option>
+                                                    <option value="1908">1908</option>
+                                                    <option value="1907">1907</option>
+                                                    <option value="1906">1906</option>
+                                                    <option value="1905">1905</option>
+                                                    <option value="1904">1904</option>
+                                                    <option value="1903">1903</option>
+                                                    <option value="1902">1902</option>
+                                                    <option value="1901">1901</option>
+                                                    <option value="1900">1900</option>
+                                                </select>
+                                                <label>Select Seats*</label>
+                                                <select name="Seats" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20+">20+</option>
+                                                   </select>
+                                                <label>Select No. of Gears*</label>
+                                                <select name="Gears" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8+">8+</option>
+                                                   </select>
+                                                <label>Select Drive Type*</label>
+                                                <select name="Drive Type" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="4x4">4x4</option>
+                                                    <option value="AWD">AWD</option>
+                                                    <option value="FRONT">Front</option>
+                                                    <option value="REAR">Rear</option>
+                                                    <option value="OTHER">Other</option>
+                                                   </select>
+                                                <label>Select No. of Cylinders*</label>
+                                                <select name="Cylinders" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="UNKNOWN">Unknown</option>
+                                                   </select>
+                                                <label>Select Fuel Type*</label>
+                                                <select name="Fuel Type" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="DIESEL">Diesel</option>
+                                                    <option value="AWD">AWD</option>
+                                                    <option value="DUAL FUEL">Dual Fuel</option>
+                                                    <option value="ELECTRIC">Electric</option>
+                                                    <option value="GAS">Gas</option>
+                                                    <option value="HYBRID">Hybrid</option>
+                                                    <option value="LEADED PETROL">Leaded Petrol</option>
+                                                    <option value="PREMIUM UNLEADED PETROL">Premium Unleaded Petrol</option>
+                                                    <option value="UNLEADED PETROL">Unleaded Petrol</option>
+                                                    <option value="UNKNOWN">Unknown</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Enter Make*</label>
+                                                <input name="Make" type="text" class="form-control" placeholder="Make*" required>
+                                                <label>Enter Model of your car*</label>
+                                                <input name="Model" type="text" class="form-control" placeholder="Model*" required>
+                                                <label>Enter Trim*</label>
+                                                <input name="Trim" type="text" class="form-control" placeholder="Trim*" required>
+                                                <label>Select Body Type*</label>
+                                                <select name="Body Style" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="CONVERTIBLE">Convertible</option>
+                                                    <option value="COUPE">Coupe</option>
+                                                    <option value="HATCHBACK">Hatchback</option>
+                                                    <option value="HEAVY COMMERCIALS">Heavy Commercials</option>
+                                                    <option value="SEDAN">Sedan</option>
+                                                    <option value="UTE">Ute</option>
+                                                    <option value="VAN">Van</option>
+                                                    <option value="TRAY">Tray</option>
+                                                    <option value="SUV">SUV</option>
+                                                    <option value="CAB CHASSIS">Cab Chassis</option>
+                                                    <option value="WAGON">Wagon</option>
+                                                    <option value="OTHER">Other</option>
+                                                   </select>
+                                                <label>Select No. of Doors*</label>
+                                                <select name="Doors" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                   </select>
+                                                <label>Select Transmission Type*</label>
+                                                <select name="Transmission" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="MANUAL">Manual</option>
+                                                    <option value="AUTOMATIC">Automatic</option>
+                                                   </select>
+                                                <label>Select Engine Type</label>
+                                                <select name="Engine Type" class="form-control selectpicker" required>
+                                                    <option selected>Select</option>
+                                                    <option value="ELECTRIC MOTOR">Electric Motor</option>
+                                                    <option value="HYBRID">Hybrid</option>
+                                                    <option value="PISTON IN-LINE">Piston In-Line</option>
+                                                    <option value="PISTON HORIZONTAL OPPOSED">Piston Horizontal Opposed</option>
+                                                    <option value="PISTON V">Piston V</option>
+                                                    <option value="PISTON W">Piston W</option>
+                                                    <option value="ROTARY">Rotary</option>
+                                                    <option value="UNKNOWN">Unknown</option>
+                                                   </select>
+                                                 <button class="btn btn-info pull-right save-continue">Save &amp; continue</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AD LISTING FORM STEP TWO -->
+                          <div id="listing-add-form-two" class="tab-pane fade">
+                            <h3>Select additional features of the vehicle</h3>
+                            <div class="lighter"><p>Features selected can either factory fitted or after market features.</p></div>
+                            <div class="panel panel-default">
+                                  <div class="panel-body">
+                                    <ul class="optional-features-list">
+                                        <li class="checkbox"><label><input name="additional_feature_0" type="checkbox"> 14" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_1" type="checkbox"> 15" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_2" type="checkbox"> 16" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_3" type="checkbox"> 17" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_4" type="checkbox"> 18" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_5" type="checkbox"> 19" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_6" type="checkbox"> 20" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_7" type="checkbox"> 22" Alloy Wheels</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_8" type="checkbox"> Alarm</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_9" type="checkbox"> Audio - MP3 Decoder</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_10" type="checkbox"> Body Kit</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_11" type="checkbox"> Bonnet Protector</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_12" type="checkbox"> Bull Bar</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_13" type="checkbox"> Cargo Barrier</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_14" type="checkbox"> Carpet Mats</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_15" type="checkbox"> CD Player</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_16" type="checkbox"> Central Locking</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_17" type="checkbox"> Central Locking - Keyless</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_18" type="checkbox"> Colour Display Screen - Front</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_19" type="checkbox"> Colour Display Screen - Rear</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_20" type="checkbox"> Control - Park Distance Rear</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_21" type="checkbox"> Cruise Control</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_22" type="checkbox"> Driving Lamps</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_23" type="checkbox"> DVD Player</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_24" type="checkbox"> Engine Immobiliser</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_25" type="checkbox"> Fog Lamps - Front</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_26" type="checkbox"> GPS (Satellite Navigation)</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_27" type="checkbox"> Headlight Covers</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_28" type="checkbox"> Leather Seats</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_29" type="checkbox"> Leather Trim</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_30" type="checkbox"> LPG (Dual Fuel)</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_31" type="checkbox"> Roof Deflector</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_32" type="checkbox"> Spoiler - Rear</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_33" type="checkbox"> Sunroof</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_34" type="checkbox"> Sunroof - Electric</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_35" type="checkbox"> Tinted Windows</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_36" type="checkbox"> Tow Bar</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_37" type="checkbox"> Weather Shields</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_38" type="checkbox"> Wheelchair Access</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_39" type="checkbox"> Ski bag</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_40" type="checkbox"> Electric Front Seats</label></li>
+                                        <li class="checkbox"><label><input name="additional_feature_41" type="checkbox"> Paint - Metallic</label></li>
+                                    </ul>
+                                </div>
+                               </div>
+                            <button class="btn btn-info pull-right save-continue">Save &amp; continue</button>
+                        </div>
+                    
+                        <!-- AD LISTING FORM STEP THREE -->
+                          <div id="listing-add-form-three" class="tab-pane fade">
+                            <h3>Enter the vehicle specific details</h3>
+                            <div class="lighter"><p>Be specific and clear about these details to completely describe the vehicle.</p></div>
+                            <div class="row">
+                            <p class="alert alert-danger d-none inventory-submit-error" id="listing-add-form-three-error" style="text-align: center !important;">Some required fields are invalid or missing</p>
+                                <div class="col-md-6">
+                                       <label>Enter Mileage*</label>
+                                    <div class="input-group">
+                                          <input name="vehicle_mileage" type="text" class="form-control" placeholder="" required>
+                                          <span class="input-group-addon">kms</span>
+                                    </div>
+                                       <label>Select Exterior Color*</label>
+                                    <select name="exterior_color" class="form-control selectpicker" required>
+                                         <option selected>Select</option>
+                                        <option value="Beige">Beige</option>
+                                        <option value="Black">Black</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Bronze">Bronze</option>
+                                        <option value="Brown">Brown</option>
+                                        <option value="Gold">Gold</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Grey">Grey</option>
+                                        <option value="Magenta">Magenta</option>
+                                        <option value="Maroon/Burgundy">Maroon/Burgundy</option>
+                                        <option value="Orange">Orange</option>
+                                        <option value="Pink">Pink</option>
+                                        <option value="Purple">Purple</option>
+                                        <option value="Red">Red</option>
+                                        <option value="Silver">Silver</option>
+                                        <option value="White">White</option>
+                                        <option value="Yellow">Yellow</option>
+                                     </select>
+                                       <label>Enter Interior Color*</label>
+                                       <input name="interior_color" type="text" class="form-control" placeholder="" required>
+                                    <div class="input-group">
+                                        <label>Is the vehicle registered?</label><br>
+                                        <label class="checkbox-inline registeredv"><input type="radio" name="RegisteredYes"> Yes</label>
+                                        <label class="checkbox-inline noregisteredv"><input type="radio" name="RegisteredNo" checked> No</label>
+                                       </div>
+                                <div class="d-none" id="vehicle-registration-details">
+                                    <div class="registration-details">
+                                           <label>Enter Registration Plate Number</label>
+                                        <input name="vehicle_plate_number" type="text" class="form-control" placeholder="">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                   <label>Select Registration Expiry Month</label>
+                                                <select name="Registration_Month" class="form-control selectpicker">
+                                                    <option selected>Select</option>
+                                                    <option value="JANUARY">January</option>
+                                                    <option value="FEBRUARY">February</option>
+                                                    <option value="MARCH">March</option>
+                                                    <option value="APRIL">April</option>
+                                                    <option value="MAY">May</option>
+                                                    <option value="JUNE">June</option>
+                                                    <option value="JULY">July</option>
+                                                    <option value="AUGUST">August</option>
+                                                    <option value="SEPTEMBER">September</option>
+                                                    <option value="OCTOBER">October</option>
+                                                    <option value="NOVEMBER">November</option>
+                                                    <option value="DECEMBER">December</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                   <label>Select Registration Expiry Year</label>
+                                                <select name="Registration_Expiry_Year" class="form-control selectpicker">
+                                                    <option selected>Select</option>
+                                                    <option value="<%=new Date().getFullYear();%>"><%=new Date().getFullYear();%></option>
+                                                    <option value="<%=new Date().getFullYear() + 1;%>"><%=new Date().getFullYear() + 1;%></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                       <label>Enter Vehicle Registration Number</label>
+                                    <div class="input-group">
+                                           <input name="vehicle_registration_number" type="text" class="form-control" placeholder="">
+                                          <span class="input-group-addon"><a href="#" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="<img src='/images/vin_locations.png' alt='' width='428' height='361'>"><i class="fa fa-info-circle"></i></a></span>
+                                    </div>
+                                    </div>
+                                    <button class="btn btn-info pull-right save-continue">Save &amp; continue</button>
+                                </div>
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="panel panel-info price-suggestion">
+                                          <div class="panel-heading">
+                                                <h3 class="panel-title">Enter your intended sale price</h3>
+                                          </div>
+                                          <div class="panel-body">
+                                            <div class="input-group">
+                                                <input name="sale_price" type="text" class="form-control">
+                                                <span class="input-group-addon">$</span>
+                                            </div>
+                                            <p class="small">Enter 10000 for $10,000</p>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- AD LISTING FORM STEP FOUR -->
+                          <div id="listing-add-form-four" class="tab-pane fade">
+                            <h3>Upload vehicle photos</h3>
+                            <div class="lighter"><p>Include as many pictures as possible to clearly show the details of the car. You must select all photos at once.</p></div>
+                            <input id="vehicle_photos" name="vehicle_photos" type="file" accept="image/*" onchange='handlePhotos(this.files)' multiple/>
+                            <hr class="fw">
+                            <h3>Add some notes & comments</h3>
+                            <div class="lighter"><p>Enter notes and comments that would inform Staff of any additional details. New notes must be entered on a new line.</p></div>
+                            <textarea name="vehicle_notes" class="form-control" rows="10"></textarea>
+                            <button class="btn btn-info pull-right save-continue">Save &amp; continue</button>
+                        </div>
+                    
+                        <!-- AD LISTING FORM STEP FIVE -->
+                          <div id="listing-add-form-five" class="tab-pane fade">
+                            <h3>Choose who has access to edit this inventory listing</h3>
+                            <div class="lighter"><p>You can either allow only Admin accounts or all Staff accounts to make changes to this inventory listing.</p></div>
+                            <div class="btn-group selling-choice" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" name="Allow-Staff-Edit" id="option1" autocomplete="off" checked> <i class="fa fa-group"></i> <strong>Allow Staff accounts</strong>
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="Allow-Admin-Edit" id="option2" autocomplete="off">  <i class="fa fa-user"></i><strong>Allow only Admin accounts</strong>
+                                </label>
+                            </div>
+                            <hr class="fw">
+                            
+                            <h3>Current vehicle location info</h3>
+                            <div class="lighter"><p>Please describe the location of the vehicle as much as possible.</p></div>
+                            <p class="alert alert-danger d-none inventory-submit-error" id="listing-add-form-five-error" style="text-align: center !important;">Vehicle location details are required to continue.</p>
+                            <div class="input-group">
+                                 <label>Is the vehicle currently located at Autotrust Winnipeg?</label><br>
+                                 <label class="checkbox-inline vehicle-location-input"><input type="radio" name="vehicle-location-input-yes"> Yes</label>
+                                 <label class="checkbox-inline vehicle-location-input"><input type="radio" name="vehicle-location-input-no" checked> No</label>
+                            </div>
+                                
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div id="vehicle-location-info">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Address Line 1*</label>
+                                                <input name="address_line_1" type="text" class="form-control" placeholder="123 EXAMPLE STREET" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Address Line 2*</label>
+                                                <input name="address_line_2" type="text" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>City*</label>
+                                                <input name="address_city" type="text" class="form-control" placeholder="" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Postal Code/ZIP*</label>
+                                                <input name="address_postal" type="text" class="form-control" placeholder="" required>
+                                            </div>
+                                        </div>
+                                        <label>Select State/Province*</label>
+                                        <select name="State" class="form-control selectpicker" required>
+                                            <option value="Select" selected>Select</option>
+                                            <optgroup label="CANADA">
+                                                <option value="AB">Alberta</option>
+                                                <option value="BC">British Columbia</option>
+                                                <option value="MB">Manitoba</option>
+                                                <option value="NB">New Brunswick</option>
+                                                <option value="NL">Newfoundland and Labrador</option>
+                                                <option value="NT">Northwest Territories</option>
+                                                <option value="NS">Nova Scotia</option>
+                                                <option value="NU">Nunavut</option>
+                                                <option value="ON">Ontario</option>
+                                                <option value="PE">Prince Edward Island</option>
+                                                <option value="QC">Quebec</option>
+                                                <option value="SK">Saskatchewan</option>
+                                                <option value="YT">Yukon</option>
+                                            </optgroup>
+                                            <optgroup label="UNITED STATES OF AMERICA">
+                                                <option value="AL">Alabama</option>
+                                                <option value="AK">Alaska</option>
+                                                <option value="AZ">Arizona</option>
+                                                <option value="AR">Arkansas</option>
+                                                <option value="CA">California</option>
+                                                <option value="CO">Colorado</option>
+                                                <option value="CT">Connecticut</option>
+                                                <option value="DE">Delaware</option>
+                                                <option value="DC">District Of Columbia</option>
+                                                <option value="FL">Florida</option>
+                                                <option value="GA">Georgia</option>
+                                                <option value="HI">Hawaii</option>
+                                                <option value="ID">Idaho</option>
+                                                <option value="IL">Illinois</option>
+                                                <option value="IN">Indiana</option>
+                                                <option value="IA">Iowa</option>
+                                                <option value="KS">Kansas</option>
+                                                <option value="KY">Kentucky</option>
+                                                <option value="LA">Louisiana</option>
+                                                <option value="ME">Maine</option>
+                                                <option value="MD">Maryland</option>
+                                                <option value="MA">Massachusetts</option>
+                                                <option value="MI">Michigan</option>
+                                                <option value="MN">Minnesota</option>
+                                                <option value="MS">Mississippi</option>
+                                                <option value="MO">Missouri</option>
+                                                <option value="MT">Montana</option>
+                                                <option value="NE">Nebraska</option>
+                                                <option value="NV">Nevada</option>
+                                                <option value="NH">New Hampshire</option>
+                                                <option value="NJ">New Jersey</option>
+                                                <option value="NM">New Mexico</option>
+                                                <option value="NY">New York</option>
+                                                <option value="NC">North Carolina</option>
+                                                <option value="ND">North Dakota</option>
+                                                <option value="OH">Ohio</option>
+                                                <option value="OK">Oklahoma</option>
+                                                <option value="OR">Oregon</option>
+                                                <option value="PA">Pennsylvania</option>
+                                                <option value="RI">Rhode Island</option>
+                                                <option value="SC">South Carolina</option>
+                                                <option value="SD">South Dakota</option>
+                                                <option value="TN">Tennessee</option>
+                                                <option value="TX">Texas</option>
+                                                <option value="UT">Utah</option>
+                                                <option value="VT">Vermont</option>
+                                                <option value="VA">Virginia</option>
+                                                <option value="WA">Washington</option>
+                                                <option value="WV">West Virginia</option>
+                                                <option value="WI">Wisconsin</option>
+                                                <option value="WY">Wyoming</option>
+                                            </optgroup>
+                                        </select>
+                                        <label>Select Country*</label>
+                                        <select name="Country" class="form-control selectpicker" required>
+                                            <option value="Select" selected>Select</option>
+                                            <optgroup label="COUNTRY">
+                                                <option value="Canada">Canada</option>
+                                                <option value="United States">United States</option>
+                                            </optgroup>
+                                        </select>
+                                        </div>
+                                        <input id="vehicle-addition-form-submit" type="submit" class="btn btn-info btn-block">
+                                        <p class="small">This vehicle will be stored in the AutoTrust inventory database. Changes can be made to this entry at a later time.</p>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="panel panel-info selected-price-plan">
+                                            <div class="panel-heading">
+                                                    <h3 class="panel-title">Place Vehicle on HOLD</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                            <button id="hold-vehicle" class="plan-blocked">HOLD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </section>
+                  </form>
+            </div>
+        </div>
+       </div>
+</div>
+</div>
+<!-- End Body Content -->
+
+</div>
+
+<!-- End Page Content -->
+<script src="/vendors/Inventory/js/edit.js"></script>
+
+<%- include('partials/bottom'); %>

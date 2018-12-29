@@ -1,0 +1,175 @@
+<%- include('partials/top'); %>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search users...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><%=user.firstName%>'s Profile</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                      <div class="profile_img">
+                        <div id="crop-avatar">
+                          <!-- Current avatar -->
+                          <% if(user.profilePic && user.profilePic != ''){%>
+                                  <img class="img-responsive avatar-view" src="<%=user.profilePic%>" alt="Avatar" title="Change the avatar">
+                              <%}else{%>
+                              <img class="img-responsive avatar-view" src="/images/img.png" alt="Avatar" title="Change the avatar">
+                              <%}%>
+                        </div>
+                      </div>
+                      <h3><%=user.firstName%> <%=user.lastName%></h3>
+
+                      <ul class="list-unstyled user_data">
+                        <li><i class="fa fa-map-marker user-profile-icon"></i> Winnipeg
+                        </li>
+
+                        <li>
+                          <i class="fa fa-briefcase user-profile-icon"></i> <%=user.role.toUpperCase()%>
+                        </li>  
+                      </ul>
+
+                      <a class="btn btn-success" href='/profile/edit'><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                      <br />
+                    
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+
+                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Recent Activity</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Projects Worked on</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">About Me</a>
+                          </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+
+                            <!-- start recent activity -->
+                            <ul class="messages">
+                              <%if(user.recentActivity.length > 0){%>
+                              <% var activityLength = user.recentActivity.length; %>
+                              <% var count = 0; %>
+                              <% for(var i=activityLength-1; i>=0 && count<=5; i--){%>
+                              <%count++%>
+                                    <li>
+                                    <% if(user.profilePic && user.profilePic != ''){%>
+                                        <img src="<%=user.profilePic%>" alt="avatar" class="avatar">
+                                    <%}else{%>
+                                      <img src="/images/img.png" alt="avatar" class="avatar">
+                                    <%}%>
+                                      <div class="message_date">
+                                        <h3 class="date text-info"><%=user.recentActivity[i].day%></h3>
+                                        <p class="month"><%=user.recentActivity[i].month%></p>
+                                      </div>
+                                      <div class="message_wrapper">
+                                        <h4 class="heading"><%=user.firstName%> <%=user.lastName%></h4>
+                                        <blockquote class="message"><%=user.recentActivity[i].message%></blockquote>
+                                        <br />
+                                      </div>
+                                    </li>
+                              <%}%>
+                              <%}else{%>
+                                    <li>
+                                    <% if(user.profilePic && user.profilePic != ''){%>
+                                    <img src="<%=user.profilePic%>" alt="avatar" class="avatar">
+                                    <%}else{%>
+                                      <img src="/images/img.png" alt="avatar" class="avatar">
+                                    <%}%>
+                                      <div class="message_date">
+                                        <h3 class="date text-info">Today</h3>
+                                      </div>
+                                      <div class="message_wrapper">
+                                        <h4 class="heading"><%=user.firstName%> <%=user.lastName%></h4>
+                                        <blockquote class="message">There is no recent activity to show.</blockquote>
+                                        <br />
+                                      </div>
+                                    </li>
+                              <%}%>
+                            </ul>
+                            <!-- end recent activity -->
+
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+
+                            <!-- start user projects -->
+                            <table class="data table table-striped no-margin">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Project Name</th>
+                                  <th>Client Company</th>
+                                  <th class="hidden-phone">Hours Spent</th>
+                                  <th>Complete (?)</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              <%if(user.projects.length > 0){%>
+                                      <%for(var i=0; i<user.projects.length; i++){%>
+                                      <tr>
+                                      <td><%=i+1%></td>
+                                      <td><%=user.projects[i].name%></td>
+                                      <td><%=user.projects[i].company%></td>
+                                      <td class="hidden-phone"><%=user.projects[i].hoursSpent%></td>
+                                      <td class="vertical-align-mid">
+                                        <div class="progress">
+                                          <%if(user.projects[i].complete){%>
+                                          <div class="progress-bar progress-bar-success" data-transitiongoal="100"></div>
+                                          <%}else{%>
+                                          <div class="progress-bar progress-bar-danger" data-transitiongoal="100"></div>
+                                          <%}%>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  <%}%>
+                              <%}else{%>
+                                  <div class="alert alert-info alert-dismissable">
+                                  <a class="panel-close close" data-dismiss="alert">×</a>
+                                  There are no projects for this user.
+                                  </div>
+                              <%}%>
+                              </tbody>
+                            </table>
+                            <!-- end user projects -->
+
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                            <%if(user.about && user.about != ''){%>
+                            <p><%=user.about%></p>
+                            <%}else{%>
+                            <p class="about-me" id="about-me-profile" data-placeholder="There is nothing to show here. Edit your profile."></p>
+                            <%}%>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+    <%- include('partials/bottom'); %>

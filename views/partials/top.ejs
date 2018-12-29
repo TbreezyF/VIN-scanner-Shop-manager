@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="/images/favicon.ico" type="image/ico" />
+
+    <title>Auto Trust | Inventory Management System</title>
+
+    <!--Vendors -->
+    <link rel="stylesheet" href="/vendors/bay/css/bay2.css">
+    <link rel="stylesheet" href="/vendors/inventory/css/responsive.css">
+
+
+     <!-- Iventory/Website Styles -->
+     <link rel="stylesheet" href="/vendors/bootstrap-theme/css/bootstrap-theme.css">
+     <link rel="stylesheet" href="/vendors/owl.carousel/css/owl.carousel.css">
+     <link rel="stylesheet" href="/vendors/owl.carousel/css/owl.theme.css">
+     <link rel="stylesheet" href="/vendors/inventory/css/color1.css">
+     <link rel="stylesheet" href="/vendors/inventory/css/style-switcher.css">
+     <link rel="stylesheet" href="/vendors/inventory/css/style.css">
+     <link rel="stylesheet" href="/vendors/inventory/css/prettyphoto.css">
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style --> 
+    <link href="/build/css/custom.css" rel="stylesheet">
+    <link href="/build/css/loader.css" rel="stylesheet">
+
+    <!--Above-Fold Javascript -->
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery Smart Wizard -->
+    <script src="/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <!-- Bootstrap -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Modernizr -->
+    <script src="/vendors/inventory/js/libs/jquery.modernizr.js"></script>
+    
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Auto Trust</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+            <a href='/profile'>
+              <div class="profile_pic">
+              <% if(user.profilePic && user.profilePic != ''){%>
+                  <img src="<%=user.profilePic%>" alt="..." class="img-circle profile_img">
+              <%}else{%>
+                <img src="/images/img.png" alt="..." class="img-circle profile_img">
+              <%}%>
+              </div>
+            </a>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2><%=user.firstName%> <%=user.lastName%></h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-exclamation-triangle"></i> Service Bay <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/service-request">New Service Request</a></li>
+                      <li><a href="/service-status">Service Statuses</a></li>
+                      <li><a href="/service-records">Service Records</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-automobile"></i> Inventory <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/inventory/new">Add New Inventory</a></li>
+                      <li><a href="/inventory">Search Inventory</a></li>
+                      <li><a href="/inventory/update">Update Inventory</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-info-circle"></i> Compare Prices&trade;</a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="fa fa-money"></i> Financing <span class="label label-success pull-right">Coming Soon</span></a></li>
+                  <li><a href="javascript:void(0)"><i class="fa fa-line-chart"></i> Reporting <span class="label label-success pull-right">Coming Soon</span></a></li>
+                  <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i> Sales <span class="label label-success pull-right">Coming Soon</span></a></li>
+                  <li><a href="javascript:void(0)"><i class="fa fa-exchange"></i> CRM <span class="label label-success pull-right">Coming Soon</span></a></li>
+                </ul>
+              </div>
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a href='/profile/edit' data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a href='/profile' data-toggle="tooltip" data-placement="top" title="Profile">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+              </a>
+              <a href='#' data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a href="/logout" data-toggle="tooltip" data-placement="top" title="Logout">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <% if(user.profilePic && user.profilePic != ''){%>
+                  <img src="<%=user.profilePic%>"><%=user.firstName%> <%=user.lastName%>
+              <%}else{%>
+                <img src="/images/img.png"> <%=user.firstName%> <%=user.lastName%>
+              <%}%>
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="/profile">Profile</a></li>
+                    <li>
+                      <a href="/profile/edit">
+                        <span>Settings</span>
+                      </a>
+                    </li>
+                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->

@@ -1,0 +1,36 @@
+{
+  "name": "production",
+  "version": "1.0.0",
+  "description": "IPS Prod",
+  "main": "app.js",
+  "scripts": {
+    "lint:ejs": "ejslint views/vehicle.ejs",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sproft Media",
+  "license": "ISC",
+  "dependencies": {
+    "await-to-js": "^2.1.1",
+    "aws-sdk": "^2.368.0",
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "joi": "^14.3.0",
+    "jsdom": "^13.1.0",
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.23.0",
+    "path": "^0.12.7",
+    "randomatic": "^3.1.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "shortid": "^2.2.14",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "ejs-lint": "^0.3.0"
+  }
+}

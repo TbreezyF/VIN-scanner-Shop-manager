@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AutoTrust Iventory Management | Account Access </title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="/vendors/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.css" rel="stylesheet">
+    <link href="/build/css/loader.css" rel="stylesheet">
+  </head>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+          <div class="lds-roller" id="login-loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <form class="login-form" id="login-form" name="login-form" method='POST' action='/login'>
+              <h1>Log In</h1>
+              <div>
+                <input type="text" class="form-control" placeholder="Username" name="login_userName" required="" />
+              </div>
+              <div>
+                <input type="password" class="form-control" placeholder="Password" name="login_pass" required="" />
+              </div>
+              <div>
+                <button type="submit" class="btn btn-default submit" id="log-in-button">Log in</button>
+                <a class="reset_pass" href="#">Lost your password?</a>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">New staff?
+                  <a href="#signup" class="to_register"> Create Account </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-paw"></i> AutoTrust Winnipeg</h1>
+                  <p>©2018 All Rights Reserved. AutoTrust Winnipeg - Software by <a href="https://www.sproft.com/">Sproft Media LLC</a></p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <div id="register" class="animate form registration_form">
+          <section class="login_content">
+          <div class="lds-roller" id="register-loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <form class="register-form" id="register-form" name="register-form" method="POST" action="/join">
+              <h1>Create An Account</h1>
+              <div>
+                <input type="text" class="form-control" placeholder="First Name" name="firstName" required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="Last Name" name="lastName" required="" />
+              </div>
+              <div>
+                <input type="email" class="form-control" placeholder="Email" name="emailAddress" required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="Username" name="userName" required="" />
+              </div>
+              <div>
+                <input type="password" class="form-control" id="pass" placeholder="Password" name="pass" required="" />
+              </div>
+              <div>
+                <input type="password" class="form-control" id="re_pass" placeholder="Confirm Password" name="re_pass" required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="Authorization Code" name="authKey" required="" />
+              </div>
+              <div>
+                <button type="submit" class="btn btn-default submit" id="sign-up-button">Submit</button>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">Already a member ?
+                  <a href="#signin" class="to_register"> Log in </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-paw"></i> AutoTrust Winnipeg</h1>
+                  <p>©2018 All Rights Reserved. AutoTrust Winnipeg - Software by <a href="https://www.sproft.com/">Sproft Media LLC</a></p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- JS -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="/vendors/access/js/main.js"></script>
+  </body>
+</html>
