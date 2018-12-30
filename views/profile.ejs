@@ -31,6 +31,10 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
+                          <%if(profile){%>
+                              <%var superUser = user;%>
+                              <%user = profile;%>
+                          <%}%>
                           <% if(user.profilePic && user.profilePic != ''){%>
                                   <img class="img-responsive avatar-view" src="<%=user.profilePic%>" alt="Avatar" title="Change the avatar">
                               <%}else{%>
@@ -48,8 +52,9 @@
                           <i class="fa fa-briefcase user-profile-icon"></i> <%=user.role.toUpperCase()%>
                         </li>  
                       </ul>
-
+                      <%if((user.userName == superUser.userName) || !profile){%>
                       <a class="btn btn-success" href='/profile/edit'><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                      <%}%>
                       <br />
                     
                     </div>
@@ -59,8 +64,10 @@
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                           <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Recent Activity</a>
                           </li>
+                          <!--
                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Projects Worked on</a>
                           </li>
+                          -->
                           <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">About Me</a>
                           </li>
                         </ul>
@@ -73,7 +80,7 @@
                               <% var activityLength = user.recentActivity.length; %>
                               <% var count = 0; %>
                               <% for(var i=activityLength-1; i>=0 && count<=5; i--){%>
-                              <%count++%>
+                              <%count++;%>
                                     <li>
                                     <% if(user.profilePic && user.profilePic != ''){%>
                                         <img src="<%=user.profilePic%>" alt="avatar" class="avatar">
@@ -113,8 +120,8 @@
 
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-
-                            <!-- start user projects -->
+                          
+                            <!-- start user projects 
                             <table class="data table table-striped no-margin">
                               <thead>
                                 <tr>
@@ -152,7 +159,7 @@
                               <%}%>
                               </tbody>
                             </table>
-                            <!-- end user projects -->
+                           end user projects -->
 
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
@@ -171,5 +178,6 @@
             </div>
           </div>
         </div>
+        <%user = superUser;%>
         <!-- /page content -->
     <%- include('partials/bottom'); %>

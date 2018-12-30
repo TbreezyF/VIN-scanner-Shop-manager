@@ -113,9 +113,12 @@ router.post('/testdrive', utility.verifyToken, vehicleExtractor, async (req, res
     }
 
     log.info('\nSuccess. Exit(0)');
-    return res.status(200).send({
+    res.status(200).send({
         success: true
     });
+
+    [err, updated] = await resolve.to(users.recentActivity(req.user, 'Started a test drive with vehicle (#' + req.stockNo + ')'));
+    return;
 });
 
 router.post('/checkin', utility.verifyToken, vehicleExtractor, async (req, res)=>{
@@ -162,11 +165,12 @@ router.post('/checkin', utility.verifyToken, vehicleExtractor, async (req, res)=
 
     //Send Response
     log.info('\nSuccess. Exit(0)');
-    return res.status(200).send({
+    res.status(200).send({
         success: true
     });
 
-
+    [err, updated] = await resolve.to(users.recentActivity(req.user, 'checked in a vehicle (#' + req.stockNo + ')'));
+    return;
 });
 
 router.post('/sell', utility.verifyToken, vehicleExtractor, async (req, res)=>{
@@ -205,9 +209,12 @@ router.post('/sell', utility.verifyToken, vehicleExtractor, async (req, res)=>{
     }
     //Send Response
     log.info('\nSuccess. Exit(0)');
-    return res.status(200).send({
+    res.status(200).send({
         success: true
     });
+
+    [err, updated] = await resolve.to(users.recentActivity(req.user, 'Marked a vehicle (#' + req.stockNo + ') as sold.'));
+    return;
 });
 
 router.post('/delete', utility.verifyToken, vehicleExtractor, async (req, res)=>{
@@ -227,9 +234,12 @@ router.post('/delete', utility.verifyToken, vehicleExtractor, async (req, res)=>
     }
     //Send Response
     log.info('\nSuccess. Exit(0)');
-    return res.status(200).send({
+    res.status(200).send({
         success: true
     });
+
+    [err, updated] = await resolve.to(users.recentActivity(req.user, 'Deleted a vehicle (#' + req.stockNo + ')'));
+    return;
 });
 
 router.get('/edit', utility.verifyToken, vehicleExtractor, async (req,res)=>{
@@ -240,6 +250,9 @@ router.get('/edit', utility.verifyToken, vehicleExtractor, async (req,res)=>{
         vehicle: vehicle,
         locLength: vehicle.dealership.locationHistory.length
     });
+
+    [err, updated] = await resolve.to(users.recentActivity(req.user, 'edited a vehicle (#' + req.stockNo + ')'));
+    return;
 });
 
 
@@ -279,6 +292,7 @@ async function vehicleExtractor(req,res, next){
     log.info('\nvehicle fetched... sending to route logic...\n');
 
     req.vehicle = vehicle;
+    req.stockNo = req.query.stockNo;
     return next();
 }
 

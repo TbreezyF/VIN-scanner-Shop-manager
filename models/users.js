@@ -236,6 +236,51 @@ module.exports = {
 
         return null;
 
+    },
+    getAll: async function(){
+        let query = {
+            TableName: '074-Users'
+        };
+
+        [err, users] = await resolve.to(db.scan(query).promise());
+
+        if(err || !users){
+            throw new Error('An unexpected error occured while trying to fetch all users');
+        }
+
+        return users.Items;
+    },
+    recentActivity: async function(user, message){
+        if(user.userName && message){
+            let recentActivity = user.recentActivity;
+            let month = months[moment().month()];
+
+            let activity = {
+                message: message,
+                day: moment().date(),
+                month: month
+            };
+            recentActivity.push(activity);
+            //update user
+            let query = {
+                TableName: '074-Users',
+                Key: {
+                    userName: user.userName
+                },
+                UpdateExpression: 'set recentActivity = :r',
+                ExpressionAttributeValues: {
+                    ':r': recentActivity
+                }
+            };
+
+            [err, user] = await resolve.to(db.update(query).promise());
+
+            if(err){
+                log.error('Could not updated ' + user.userName + "'s recent activity with: " + message);
+                throw new Error("Could not updated user's activity");
+            }
+        }
+        return;
     } 
 }//END Exports
 

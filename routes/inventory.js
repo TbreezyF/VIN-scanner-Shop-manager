@@ -18,6 +18,27 @@ const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 
 
 /*START ROUTES*/
+router.get('/', utility.verifyToken, async(req, res)=>{
+    if(!req.user){
+        return res.status(200).redirect('/');
+    }
+
+    [err, vehicles] = await resolve.to(inventory.getAll());
+
+    if(err || !vehicles){
+        return res.status(200).render('inventory', {
+            message: '500 Internal Server Error. Try again or contact support if problem persists',
+            user: req.user
+        }); 
+    }
+
+    return res.status(200).render('inventory', {
+        user: req.user,
+        vehicles: vehicles,
+        message: null
+    });
+});
+
 router.get('/new', utility.verifyToken, async(req, res)=>{
     return res.status(200).render('new-inventory', {
         user: req.user
@@ -31,9 +52,13 @@ router.post('/vin/decoder', utility.verifyToken, decoder.vin,  async (req, res) 
 });
 
 router.post('/new/add', utility.verifyToken, handleInventory, async (req, res)=>{
-    return res.status(200).json({
+    res.status(200).json({
         stockNo: req.stockNo
     });  
+
+    [err, updated] = await resolve.to(users.recentActivity(req.user, 'Added a new vehicle (#' + req.stockNo + ')'));
+
+    return;
 });
 
 router.post('/edit', utility.verifyToken, handleInventory, async (req, res)=>{

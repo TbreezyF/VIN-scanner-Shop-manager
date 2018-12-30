@@ -1,0 +1,144 @@
+<%-include('partials/top')%>
+<style>
+.ribbon {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: center;
+}
+
+    .ribbon span {
+        font-size: 10px;
+        color: #fff;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+        line-height: 20px;
+        transform: rotate(45deg);
+        width: 100px;
+        display: block;
+        background: #F62459;
+        background: linear-gradient(#ff89b1 0%, #ff006e 100%);
+        box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+        position: absolute;
+        top: 19px;
+        right: -21px;
+
+    }
+
+        .ribbon span::before {
+            content: '';
+            position: absolute;
+            left: 0%;
+            top: 100%;
+            z-index: -1;
+            border-left: 3px solid #F62459;
+            border-right: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid #F62459;
+        }
+
+        .ribbon span::after {
+            content: '';
+            position: absolute;
+            right: 0%;
+            top: 100%;
+            z-index: -1;
+            border-right: 3px solid #F62459;
+            border-left: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid #F62459;
+        }
+
+
+#inventory .card:hover {
+    transition: all 0.3s ease;
+    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+}
+
+
+#inventory .view-btn {
+    background-color: #e6de08;
+    margin: -25px 0 0 0;
+    border-radius: 0 0 0 0;
+    font-size: 14px;
+    border: #e6de08;
+    color: #000;
+
+}
+
+
+    #inventory .btn:hover {
+        background-color: #ff4444;
+        color: #fff;
+        border: 2px solid #ff4444;
+        transition: all 0.3s ease;
+        box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+    }
+
+    .wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
+</style>
+<div class="right_col" role="main">
+    <!-- Start Body Content -->
+    <div class="main" role="main">
+        <div id="content" class="content full">
+            <div class="container">
+                <!-- Inventory - START -->
+
+            <div class="container-fluid" id="inventory">
+                <div style="margin-left: 5px !important; margin-bottom: 20px !important; color: #1ABB9C;" class="row heading">
+                    <h2 class="sub-heading">AutoTrust Inventory List</h2>
+                </div>
+
+                <%if(!message){%>
+                    <!--List -->
+                    <%var count=0;%>
+                    <%for(var j=0; j<=Math.round(vehicles.length/4); j++){%>
+                    <div class="row mt-5">
+                        <%position=count;%>
+                        <%count=0;%>
+                        <%for(var i=position; i<vehicles.length && count<4; i++){%>
+                            <%count++;%>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <%if(vehicles[i].photos.length > 0){%>
+                                        <img style="height: 200px !important; width: 400px !important;" class="img-fluid" src="<%=vehicles[i].photos[0]%>" alt="Card image cap">
+                                    <%}else{%>
+                                        <img style="height: 200px !important; width: 400px !important;" class="img-fluid" src="/images/placeholderCar.png" alt="Card image cap">
+                                    <%}%>
+                                    <a href='/vehicle?stockNo=<%=vehicles[i].stockNo%>'><button class="btn view-btn"><p>#<%=vehicles[i].stockNo%>&nbsp;<%=vehicles[i].year%>&nbsp;<%=vehicles[i].make%>&nbsp;<%=vehicles[i].model%>&nbsp;<%=vehicles[i].trim%></p></button></a>
+                                    <div class="ribbon">
+                                        <span>$<%=vehicles[i].dealership.price%></span>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}%>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="clearfix"></div>
+                    <%}%>
+                    <!--list-->
+                <%}else{%>
+                <p class="alert alert-danger" style="text-align: center;"><%=message%></p>
+                <%}%>
+            </div>
+
+            <!-- Inventory - END -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%-include('partials/bottom')%>

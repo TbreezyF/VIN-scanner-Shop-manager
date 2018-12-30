@@ -23,7 +23,31 @@ router.get('/', utility.verifyToken, async (req, res) => {
     }
 
     return res.status(200).render('profile', {
-        user: req.user
+        user: req.user,
+        profile: null
+    });
+});
+
+router.get('/@/:userName', utility.verifyToken, async (req, res) => {
+    if(!req.user){
+        return res.status(200).redirect('/');
+    }
+
+    if(!req.params.userName){
+        return res.status(200).redirect('/');
+    }
+
+    let userName = req.params.userName;
+
+    [err, user] = await resolve.to(users.fetch(userName));
+
+    if(err || !user){
+        return res.status(200).redirect('/');  
+    }
+
+    return res.status(200).render('profile', {
+        user: req.user,
+        profile: user
     });
 });
 

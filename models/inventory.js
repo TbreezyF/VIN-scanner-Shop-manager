@@ -87,6 +87,19 @@ module.exports = {
         return true;
 
     },
+    getAll: async function(){
+        let query = {
+            TableName: '074-Vehicles'
+        };
+
+        [err, vehicles] = await resolve.to(db.scan(query).promise());
+
+        if(err || !vehicles){
+            throw new Error('An unexpected error occured while trying to fetch all vehicles');
+        }
+
+        return vehicles.Items;
+    },
     fetch: async function(stockNo, mode){
         let DBmodeArray = ['074-Vehicles', '074-soldVehicles'];
         let queryTable = '074-Vehicles';

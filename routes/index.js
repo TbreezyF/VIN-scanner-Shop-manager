@@ -90,9 +90,8 @@ router.get('/dashboard', utility.verifyToken, async (req, res) => {
         return res.status(200).redirect('/');
     }
 
-    return res.status(200).render('search-inventory', {
-        user: req.user,
-        vehicleID: 234
+    return res.status(200).render('dashboard', {
+        user: req.user
     });
 });
 
@@ -105,11 +104,32 @@ router.get('/logout', utility.verifyToken, async (req, res) => {
     return res.status(200).redirect('/');
 });
 
+router.get('/staff', utility.verifyToken, async (req, res) => {
+    if(!req.user){
+        return res.status(200).redirect('/');
+    }
+
+    [err, allUsers] = await resolve.to(users.getAll());
+
+    if(err || !allUsers){
+        return res.status(200).render('staff', {
+            message: '500 Internal Server Error. Try again or contact support if problem persists',
+            user: req.user
+        }); 
+    }
+
+    return res.status(200).render('staff', {
+        user: req.user,
+        users: allUsers,
+        message: null
+    });
+});
+
 
 /*END ROUTES*/
 
 router.get('/view', utility.verifyToken, async (req, res)=>{
-    return res.status(200).render('../raw-views/projects', {
+    return res.status(200).render('../raw-views/index', {
         user: req.user
     });
 });
