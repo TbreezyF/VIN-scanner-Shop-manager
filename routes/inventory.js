@@ -66,6 +66,37 @@ router.post('/edit', utility.verifyToken, handleInventory, async (req, res)=>{
         stockNo: req.stockNo
     });  
 });
+
+router.post('/search', utility.verifyToken, async (req, res)=>{
+    if(!req.user){
+        return res.status(200).send({
+            message: 'Cannot verify your identity'
+        });
+    }
+
+    if(!req.body.searchTerm || req.body.searchTerm == ''){
+        return res.status(200).send({
+            error: 'No search term provided'
+        });
+    }
+
+    let stockNo = req.body.searchTerm;
+
+    [err, vehicle] = await resolve.to(inventory.fetch(stockNo, 0));
+
+    if(err || !vehicle){
+        [err, vehicle] = await resolve.to(inventory.fetch(stockNo, 1));
+        if(err || !vehicle){
+            return res.status(200).send({
+                error: 'Vehicle not found'
+            }); 
+        }
+    }
+
+    return res.status(200).send({
+        success: true
+    }); 
+});
 /*END ROUTES*/
 
 async function handleInventory(req, res, next){

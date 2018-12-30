@@ -332,7 +332,60 @@ $(document).ready(function(){
 
     $(document).on('click', '.pricecheck-manual', function(e){
         e.preventDefault();
-    })
+    });
+
+
+    $('#staffSearchGo').click(function(e){
+        e.preventDefault();
+        $('#search-staff-error').addClass('d-none')
+        var searchTerm = $('#staff-search-input').val();
+
+        if(!alphanumRegex2.test(searchTerm)){
+            $('#search-staff-error').removeClass('d-none').text('The search term you entered is in an invalid format');
+            return;
+        }
+
+        $.post('/staff/search', {searchTerm: searchTerm}).done(function(res){
+            if(res.error){
+                $('#search-staff-error').removeClass('d-none').text(res.error);
+                return;
+            }
+            if(res.success){
+                window.location = '/profile/@/' + searchTerm;
+                return;
+            }
+
+            //Something went wrong
+            $('#search-staff-error').removeClass('d-none').text('An unexpected error occured. Please try searching again or contact support');
+            return;
+        });
+    });
+
+    $('#inventorySearchGo').click(function(e){
+        e.preventDefault();
+        $('#search-inventory-error').addClass('d-none')
+        var searchTerm = $('#search-inventory-input').val();
+
+        if(!Number(searchTerm)){
+            $('#search-inventory-error').removeClass('d-none').text('The search term you entered is in an invalid format');
+            return;
+        }
+
+        $.post('/inventory/search', {searchTerm: searchTerm}).done(function(res){
+            if(res.error){
+                $('#search-inventory-error').removeClass('d-none').text(res.error);
+                return;
+            }
+            if(res.success){
+                window.location = '/vehicle/?stockNo=' + searchTerm;
+                return;
+            }
+
+            //Something went wrong
+            $('#search-inventory-error').removeClass('d-none').text('An unexpected error occured. Please try searching again or contact support');
+            return;
+        });
+    });
 
 
     

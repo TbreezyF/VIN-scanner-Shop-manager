@@ -21,8 +21,8 @@
         transform: rotate(45deg);
         width: 100px;
         display: block;
-        background: #F62459;
-        background: linear-gradient(#ff89b1 0%, #ff006e 100%);
+        background: #34495E;
+        background: linear-gradient(#34495E 0%, #1D2E3F 100%);
         box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
         position: absolute;
         top: 19px;
@@ -36,10 +36,10 @@
             left: 0%;
             top: 100%;
             z-index: -1;
-            border-left: 3px solid #F62459;
+            border-left: 3px solid #34495E;
             border-right: 3px solid transparent;
             border-bottom: 3px solid transparent;
-            border-top: 3px solid #F62459;
+            border-top: 3px solid #34495E;
         }
 
         .ribbon span::after {
@@ -48,10 +48,10 @@
             right: 0%;
             top: 100%;
             z-index: -1;
-            border-right: 3px solid #F62459;
+            border-right: 3px solid #34495E;
             border-left: 3px solid transparent;
             border-bottom: 3px solid transparent;
-            border-top: 3px solid #F62459;
+            border-top: 3px solid #34495E;
         }
 
 
@@ -62,11 +62,11 @@
 
 
 #inventory .view-btn {
-    background-color: #e6de08;
+    background-color: #1ABB9C;
     margin: -25px 0 0 0;
     border-radius: 0 0 0 0;
     font-size: 14px;
-    border: #e6de08;
+    border: #1ABB9C;
     color: #000;
 
 }
@@ -99,13 +99,23 @@
                 <div style="margin-left: 5px !important; margin-bottom: 20px !important; color: #1ABB9C;" class="row heading">
                     <h2 class="sub-heading">AutoTrust Inventory List</h2>
                 </div>
+                <div style="text-align: center;" id="search-inventory-error" class="alert alert-danger alert-dismissable d-none">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                    </div>
+                    <div class="input-group">
+                        <input id="search-inventory-input" type="text" class="form-control" placeholder="Search for a vehicle...">
+                        <span class="input-group-btn">
+                            <button id="inventorySearchGo" class="btn btn-default" type="button">Go!</button>
+                        </span>
+                  </div>
 
                 <%if(!message){%>
                     <!--List -->
                     <%var count=0;%>
-                    <%for(var j=0; j<=Math.round(vehicles.length/4); j++){%>
+                    <%var position=0;%>
+                    <%for(var j=0; j<Math.ceil(vehicles.length/4); j++){%>
                     <div class="row mt-5">
-                        <%position=count;%>
+                        <%position = position + count;%>
                         <%count=0;%>
                         <%for(var i=position; i<vehicles.length && count<4; i++){%>
                             <%count++;%>
@@ -118,7 +128,7 @@
                                     <%}%>
                                     <a href='/vehicle?stockNo=<%=vehicles[i].stockNo%>'><button class="btn view-btn"><p>#<%=vehicles[i].stockNo%>&nbsp;<%=vehicles[i].year%>&nbsp;<%=vehicles[i].make%>&nbsp;<%=vehicles[i].model%>&nbsp;<%=vehicles[i].trim%></p></button></a>
                                     <div class="ribbon">
-                                        <span>$<%=vehicles[i].dealership.price%></span>
+                                        <span style="font-size: 13px;">$<%=vehicles[i].dealership.price%></span>
                                     </div>
                                 </div>
                             </div>

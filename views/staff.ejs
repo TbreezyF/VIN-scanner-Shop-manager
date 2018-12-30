@@ -42,6 +42,15 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
 
                 <hgroup class="mb20">
                     <h1>AutoTrust Staff List</h1>
+                    <div style="text-align: center;" id="search-staff-error" class="alert alert-danger alert-dismissable d-none">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                    </div>
+                    <div class="input-group">
+                        <input id="staff-search-input" type="text" class="form-control" placeholder="Search for staff...">
+                        <span class="input-group-btn">
+                            <button id="staffSearchGo" class="btn btn-default" type="button">Go!</button>
+                        </span>
+                  </div>
                     <h2 class="lead"><strong class="text-danger"><%=users.length%></strong> results were found</h2>								
                 </hgroup>
 

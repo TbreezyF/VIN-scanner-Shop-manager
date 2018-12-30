@@ -7,6 +7,7 @@ const api = require('./routes/api');
 const inventory = require('./routes/inventory');
 const profile = require('./routes/profile');
 const vehicle = require('./routes/vehicle');
+const staff = require('./routes/staff');
 const checker = require('./routes/checker');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -35,7 +36,7 @@ app.use('/inventory', inventory);
 app.use('/vehicle', vehicle);
 app.use('/checker', checker);
 app.use('/profile', profile);
-app.use('/api', api);
+app.use('/staff', staff);
 
 app.listen(process.env.PORT || 8081, () => {
     log.info('[' + new Date() + '] AUTOTRUST Server is listening on [::]:' + process.env.PORT);

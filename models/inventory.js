@@ -109,8 +109,10 @@ module.exports = {
             throw new Error('Invalid stock number');
         }
 
-        if(Number(mode)){
-            queryTable = DBmodeArray[mode];
+        if(mode){
+            if(Number(mode)){
+                queryTable = DBmodeArray[mode];
+            }
         }
 
         stockNo = Number(stockNo);

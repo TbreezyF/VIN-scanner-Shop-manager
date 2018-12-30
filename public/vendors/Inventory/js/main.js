@@ -417,4 +417,14 @@ $(document).ready(function(){
         });
         return;
     });
+
+
+    //Fill in Vin number from scanner if available
+    $('#customVehicleDetailsTab').click(function(){
+        if($('#scanner_input').val() != ''){
+            $('#manual-vin-number').val($('#scanner_input').val());
+            return;
+        }
+        return;
+    });
 });

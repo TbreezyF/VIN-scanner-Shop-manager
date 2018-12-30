@@ -7,12 +7,15 @@
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search users...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
+                    <div style="text-align: center;" id="search-staff-error" class="alert alert-danger alert-dismissable d-none">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                </div>
+              <div class="input-group">
+                  <input id="staff-search-input" type="text" class="form-control" placeholder="Search for staff...">
+                  <span class="input-group-btn">
+                      <button id="staffSearchGo" class="btn btn-default" type="button">Go!</button>
+                  </span>
+               </div>
                 </div>
               </div>
             </div>
@@ -31,8 +34,8 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
+                          <%var superUser = user;%>
                           <%if(profile){%>
-                              <%var superUser = user;%>
                               <%user = profile;%>
                           <%}%>
                           <% if(user.profilePic && user.profilePic != ''){%>
