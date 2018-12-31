@@ -4,6 +4,7 @@ const path = require('path');
 const util = require('util');
 const users = require('../models/users.js');
 const inventory = require('../models/inventory.js');
+const service = require('../models/service.js');
 const utility = require('../models/utility.js');
 const resolve = require('await-to-js');
 const log = require('../models/logger');

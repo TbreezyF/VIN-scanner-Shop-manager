@@ -3,10 +3,14 @@ const router = express.Router();
 const path = require('path');
 const util = require('util');
 const users = require('../models/users.js');
+const inventory = require('../models/inventory.js');
+const service = require('../models/service.js');
 const utility = require('../models/utility.js');
 const resolve = require('await-to-js');
 const log = require('../models/logger');
 const request = require('request-promise');
+const randomatic = require('randomatic');
+const moment = require('moment');
 
 /*START ROUTES*/
 
@@ -91,7 +95,13 @@ router.get('/dashboard', utility.verifyToken, async (req, res) => {
     }
 
     return res.status(200).render('dashboard', {
-        user: req.user
+        user: req.user,
+        serviceRecords: 10,
+        totalUsers: await users.getLength(),
+        totalVehicles: await inventory.getLength(0),
+        totalSoldVehicles: await inventory.getLength(1),
+        totalServiceRecords: 15,
+        totalVehiclesInBay: 3
     });
 });
 

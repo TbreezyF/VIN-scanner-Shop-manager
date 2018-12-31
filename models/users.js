@@ -250,6 +250,23 @@ module.exports = {
 
         return users.Items;
     },
+    getLength: async function(){
+        let query = {
+            TableName: '074-Users'
+        };
+
+        [err, users] = await resolve.to(db.scan(query).promise());
+
+        if(err || !users){
+            throw new Error('An unexpected error occured while trying to fetch all users');
+        }
+
+        if(users.Items){
+            return users.Items.length;
+        }else{
+            return 0;
+        }
+    },
     recentActivity: async function(user, message){
         if(user.userName && message){
             let recentActivity = user.recentActivity;

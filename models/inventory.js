@@ -100,6 +100,31 @@ module.exports = {
 
         return vehicles.Items;
     },
+    getLength: async function(mode){
+        let DBmodeArray = ['074-Vehicles', '074-soldVehicles'];
+        let queryTable = '074-Vehicles';
+        if(mode){
+            if(Number(mode) <=1){
+                queryTable = DBmodeArray[mode];
+            }
+        }
+
+        let query = {
+            TableName: queryTable
+        };
+
+        [err, vehicles] = await resolve.to(db.scan(query).promise());
+
+        if(err || !vehicles){
+            throw new Error('An unexpected error occured while trying to fetch all vehicles');
+        }
+
+        if(vehicles.Items){
+            return vehicles.Items.length;
+        }else{
+            return 0;
+        }
+    },
     fetch: async function(stockNo, mode){
         let DBmodeArray = ['074-Vehicles', '074-soldVehicles'];
         let queryTable = '074-Vehicles';
@@ -110,7 +135,7 @@ module.exports = {
         }
 
         if(mode){
-            if(Number(mode)){
+            if(Number(mode) <=1){
                 queryTable = DBmodeArray[mode];
             }
         }

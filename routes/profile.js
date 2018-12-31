@@ -4,11 +4,13 @@ const path = require('path');
 const util = require('util');
 const users = require('../models/users.js');
 const inventory = require('../models/inventory.js');
+const service = require('../models/service.js');
 const utility = require('../models/utility.js');
 const resolve = require('await-to-js');
 const log = require('../models/logger');
 const request = require('request-promise');
 const randomatic = require('randomatic');
+const moment = require('moment');
 
 const alphanumRegex = /^[a-zA-Z0-9\s.\-_+/\r\n]+$/;
 const vinNumberRegex = /^(([a-h,A-H,j-n,J-N,p-z,P-Z,0-9]{9})([a-h,A-H,j-n,J-N,p,P,r-t,R-T,v-z,V-Z,0-9])([a-h,A-H,j-n,J-N,p-z,P-Z,0-9])(\d{6}))$/;
