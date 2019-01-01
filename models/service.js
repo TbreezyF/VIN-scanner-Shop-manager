@@ -17,19 +17,6 @@ const db = new AWS.DynamoDB.DocumentClient({
     convertEmptyValues: true
 });
 
-const s3 = new AWS.S3();
-let notesArray = []; //Holder to parse vehicle notes
-
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-const feature_map = [
-    '14" Alloy Wheels', '15" Alloy Wheels', '16" Alloy Wheels', '17" Alloy Wheels', '18" Alloy Wheels', '19" Alloy Wheels', '20" Alloy Wheels', '22" Alloy Wheels',
-    'Alarm', 'Audio - MP3 Decoder', 'Body Kit', 'Bonnet Protector', 'Bull Bar', 'Cargo Barrier', 'Carpet Mats', 'CD Player', 'Central Locking', 'Central Locking - Keyless',
-    'Colour Display Screen - Front', 'Colour Display Screen - Rear', 'Control - Park Distance Rear', 'Cruise Control', 'Driving Lamps', 'DVD Player', 'Engine Immobiliser', 'Fog Lamps - Front', 
-    'GPS (Satellite Navigation)', 'Headlight Covers', 'Leather Seats', 'Leather Trim', 'LPG (Dual Fuel)', 'Roof Deflector', 'Spoiler - Rear', 'Sunroof', 'Sunroof - Electric', 'Tinted Windows', 
-    'Tow Bar', 'Weather Shields', 'Wheelchair Access', 'Ski bag', 'Electric Front Seats', 'Paint - Metallic'
-                    ];
-
 module.exports = {
     add: async function(serviceInfo){
          let query = {

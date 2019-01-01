@@ -41,6 +41,7 @@ router.post('/join', async (req, res) => {
                 error: err.message
             });
         }else{
+            user.locked = false;
             let bearerToken = utility.getToken(user);
             res.cookie('session', bearerToken, {
                 httpOnly: true,
@@ -76,6 +77,7 @@ router.post('/login', async (req, res) => {
             error: err.message
         });
     }else{
+        user.locked = false;
         let bearerToken = utility.getToken(user);
         res.cookie('session', bearerToken, {
             httpOnly: true,
@@ -89,7 +91,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/dashboard', utility.verifyToken, async (req, res) => {
+router.get('/dashboard', utility.verifyToken, utility.checkLock, async (req, res) => {
     if(!req.user){
         return res.status(200).redirect('/');
     }
@@ -121,12 +123,28 @@ router.get('/logout', utility.verifyToken, async (req, res) => {
     res.clearCookie('session');
     return res.status(200).redirect('/');
 });
+
+router.get('/lock', utility.verifyToken, async (req, res) => {
+    if(!req.user){
+        return res.status(200).redirect('/');
+    }
+    let user = req.user;
+    user.locked = true;
+    delete user.exp;
+
+    let bearerToken = utility.getToken(user);
+    res.clearCookie('session');
+    res.cookie('session', bearerToken, {
+                httpOnly: true,
+                maxAge: 86400000,
+                secure: false
+    });
+
+    return res.status(200).render('lock', {
+        userName: user.userName
+    })
+});
 /*END ROUTES*/
 
-router.get('/view', utility.verifyToken, async (req, res)=>{
-    return res.status(200).render('../archive/raw-views/widgets', {
-        user: req.user
-    });
-});
 
 module.exports = router;

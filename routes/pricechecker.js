@@ -19,13 +19,13 @@ const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 /*START ROUTES*/
 
 
-router.get('/', utility.verifyToken, async(req, res)=>{
+router.get('/', utility.verifyToken, utility.checkLock, async(req, res)=>{
     return res.status(200).render('pricechecker', {
         user: req.user
     });
 });
 
-router.post('/getprice', utility.verifyToken, async(req, res)=>{
+router.post('/getprice', utility.verifyToken, utility.checkLock, async(req, res)=>{
     log.info('\nEntering route/Attempting to check a car price\n')
     if(!req.user){
         return res.status(200).redirect('/');
@@ -60,7 +60,7 @@ router.post('/getprice', utility.verifyToken, async(req, res)=>{
     });
 });
 
-router.post('/vin', utility.verifyToken, decoder.vin, async(req, res)=>{
+router.post('/vin', utility.verifyToken, utility.checkLock, decoder.vin, async(req, res)=>{
     if(!req.user){
         return res.status(200).redirect('/');
     }

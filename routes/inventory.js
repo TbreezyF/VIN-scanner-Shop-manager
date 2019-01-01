@@ -20,7 +20,7 @@ const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 
 
 /*START ROUTES*/
-router.get('/', utility.verifyToken, async(req, res)=>{
+router.get('/', utility.verifyToken, utility.checkLock, async(req, res)=>{
     if(!req.user){
         return res.status(200).redirect('/');
     }
@@ -41,19 +41,19 @@ router.get('/', utility.verifyToken, async(req, res)=>{
     });
 });
 
-router.get('/new', utility.verifyToken, async(req, res)=>{
+router.get('/new', utility.verifyToken, utility.checkLock, async(req, res)=>{
     return res.status(200).render('new-inventory', {
         user: req.user
     });
 });
 
-router.post('/vin/decoder', utility.verifyToken, decoder.vin,  async (req, res) => {
+router.post('/vin/decoder', utility.verifyToken, utility.checkLock, decoder.vin,  async (req, res) => {
   return res.status(200).send({
         data: req.vehicleData
     });
 });
 
-router.post('/new/add', utility.verifyToken, handleInventory, async (req, res)=>{
+router.post('/new/add', utility.verifyToken, utility.checkLock, handleInventory, async (req, res)=>{
     res.status(200).json({
         stockNo: req.stockNo
     });  
@@ -63,13 +63,13 @@ router.post('/new/add', utility.verifyToken, handleInventory, async (req, res)=>
     return;
 });
 
-router.post('/edit', utility.verifyToken, handleInventory, async (req, res)=>{
+router.post('/edit', utility.verifyToken, utility.checkLock, handleInventory, async (req, res)=>{
     return res.status(200).json({
         stockNo: req.stockNo
     });  
 });
 
-router.post('/search', utility.verifyToken, async (req, res)=>{
+router.post('/search', utility.verifyToken, utility.checkLock, async (req, res)=>{
     if(!req.user){
         return res.status(200).send({
             message: 'Cannot verify your identity'

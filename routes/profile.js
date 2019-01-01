@@ -19,7 +19,7 @@ const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 /*START ROUTES*/
 
 
-router.get('/', utility.verifyToken, async (req, res) => {
+router.get('/', utility.verifyToken, utility.checkLock, async (req, res) => {
     if(!req.user){
         return res.status(200).redirect('/');
     }
@@ -30,7 +30,7 @@ router.get('/', utility.verifyToken, async (req, res) => {
     });
 });
 
-router.get('/@/:userName', utility.verifyToken, async (req, res) => {
+router.get('/@/:userName', utility.verifyToken, utility.checkLock, async (req, res) => {
     if(!req.user){
         return res.status(200).redirect('/');
     }
@@ -53,7 +53,7 @@ router.get('/@/:userName', utility.verifyToken, async (req, res) => {
     });
 });
 
-router.get('/edit', utility.verifyToken, async (req, res) => {
+router.get('/edit', utility.verifyToken, utility.checkLock, async (req, res) => {
     if(!req.user){
         return res.status(200).redirect('/');
     }
@@ -63,7 +63,7 @@ router.get('/edit', utility.verifyToken, async (req, res) => {
     });
 });
 
-router.post('/update', utility.verifyToken, async (req, res) => {
+router.post('/update', utility.verifyToken, utility.checkLock, async (req, res) => {
     
     if(!req.user){
         return res.status(200).redirect('/');

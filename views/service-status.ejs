@@ -10,7 +10,7 @@
                     
                     
                     <div class="col-md-12">
-                    <h4 style="color: #1ABB9C;">AutoTrust Service Records</h4>
+                    <h4 style="color: #1ABB9C;">AutoTrust Open Service Requests</h4>
                     <div class="table-responsive">
         
                             
@@ -42,52 +42,54 @@
                 <%}else{%>
                     <%var style;%>
                     <%for(var i=0; i<records.length; i++){%>
-                    <%if(records[i].delayed){%>
-                    <%style = 'background: #b7b2b2 !important;'%>
-                    <%}else{%>
-                    <%style = 'background: #F7F7F7 !important;'%>
-                    <%}%>
-                    <tr style="<%=style%>">
-                    <td><%=records[i].serviceId%></td>
-                    <td><%=records[i].firstName.toUpperCase()%></td>
-                    <td><%=records[i].lastName.toUpperCase()%></td>
-                    <td><%=records[i].servicePhone%></td>
-                    <td><%=records[i].carMake.toUpperCase()%></td>
-                    <td><%=records[i].carModel.toUpperCase()%></td>
-                    <td><%=records[i].carYear%></td>
-                    <td><%=records[i].licensePlate.toUpperCase()%></td>
-                    <td><p><%=records[i].serviceList%></p></td>
-                    <%if(records[i].technicians[0]){%>
-                    <td><p><%=records[i].technicians[0].toUpperCase()%></p></td>
-                    <%}else{%>
-                    <td><p><%=records[i].technicians[0]%></p></td>
-                    <%}%>
-                    <td><p><%=records[i].timeStarted.exactTime%></p></td>
-                    <td><p><%=records[i].timeEnded.exactTime%></p></td>
-                    <%if(records[i].notes){%>
-                    <td><p><%=records[i].notes.toUpperCase()%></p></td>
-                    <%}else{%>
-                    <td><p></p></td>
-                    <%}%>
-                    <%if(user.role.toUpperCase() == 'ADMIN'){%>
-                    <%if(records[i].completed){%>
-                    <td>CLOSED</td>
-                    <%}else{%>
-                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-delete="<%=records[i].serviceId%>" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                    <%}%>
-                    <%}else{%>
-                    <%if(!records[i].completed){%> 
-                        <%if(!records[i].inBay){%>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Start"><button class="btn btn-primary btn-xs" data-start="<%=records[i].serviceId%>" data-title="Start" data-toggle="modal" data-target="#start" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                    <%if(!records[i].completed){%>
+                        <%if(records[i].delayed){%>
+                        <%style = 'background: #b7b2b2 !important;'%>
                         <%}else{%>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Complete"><button class="btn btn-danger btn-xs" data-index="<%=i%>" data-stop="<%=records[i].serviceId%>" data-title="Complete" data-toggle="modal" data-target="#stop" ><span class="glyphicon glyphicon-stop"></span></button></p></td>
+                        <%style = 'background: #F7F7F7 !important;'%>
                         <%}%>
-                    <%}else{%>
-                        <td>CLOSED</td>
+                        <tr style="<%=style%>">
+                        <td><%=records[i].serviceId%></td>
+                        <td><%=records[i].firstName.toUpperCase()%></td>
+                        <td><%=records[i].lastName.toUpperCase()%></td>
+                        <td><%=records[i].servicePhone%></td>
+                        <td><%=records[i].carMake.toUpperCase()%></td>
+                        <td><%=records[i].carModel.toUpperCase()%></td>
+                        <td><%=records[i].carYear%></td>
+                        <td><%=records[i].licensePlate.toUpperCase()%></td>
+                        <td><p><%=records[i].serviceList%></p></td>
+                        <%if(records[i].technicians[0]){%>
+                        <td><p><%=records[i].technicians[0].toUpperCase()%></p></td>
+                        <%}else{%>
+                        <td><p><%=records[i].technicians[0]%></p></td>
+                        <%}%>
+                        <td><p><%=records[i].timeStarted.exactTime%></p></td>
+                        <td><p><%=records[i].timeEnded.exactTime%></p></td>
+                        <%if(records[i].notes){%>
+                        <td><p><%=records[i].notes.toUpperCase()%></p></td>
+                        <%}else{%>
+                        <td><p></p></td>
+                        <%}%>
+                        <%if(user.role.toUpperCase() == 'ADMIN'){%>
+                            <%if(records[i].completed){%>
+                            <td>CLOSED</td>
+                            <%}else{%>
+                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-delete="<%=records[i].serviceId%>" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                            <%}%>
+                        <%}else{%>
+                            <%if(!records[i].completed){%> 
+                                <%if(!records[i].inBay){%>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Start"><button class="btn btn-primary btn-xs" data-start="<%=records[i].serviceId%>" data-title="Start" data-toggle="modal" data-target="#start" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                                <%}else{%>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Complete"><button class="btn btn-danger btn-xs" data-index="<%=i%>" data-stop="<%=records[i].serviceId%>" data-title="Complete" data-toggle="modal" data-target="#stop" ><span class="glyphicon glyphicon-stop"></span></button></p></td>
+                                <%}%>
+                            <%}else{%>
+                                <td>CLOSED</td>
+                            <%}%>
+                        <%}%>
+                        </tr>
                     <%}%>
                     <%}%>
-                    </tr>
-                <%}%>
                 <%}%>
                 </tbody>
                     
@@ -106,7 +108,7 @@
                 </div>
                 </div>
         <%}else{%>
-                <p class="alert alert-danger"><%=message%></p>
+            <p class="alert alert-danger"><%=message%></p>
         <%}%>
              <!--Delete Modal-->
              <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">

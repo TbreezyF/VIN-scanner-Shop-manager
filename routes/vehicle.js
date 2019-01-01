@@ -20,7 +20,7 @@ const vinNumberRegex2 = /^([A-Z\d]{3})[A-Z]{2}\d{2}([A-Z\d]{1})([X\d]{1})([A-Z\d
 const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 /*START ROUTES*/
 
-router.get('/', utility.verifyToken, async (req, res) => {
+router.get('/', utility.verifyToken, utility.checkLock, async (req, res) => {
     if(!req.user){
         return res.status(200).redirect('/');
     }
@@ -53,7 +53,7 @@ router.get('/', utility.verifyToken, async (req, res) => {
     });
 });
 
-router.post('/testdrive', utility.verifyToken, vehicleExtractor, async (req, res)=>{
+router.post('/testdrive', utility.verifyToken, utility.checkLock, vehicleExtractor, async (req, res)=>{
     if(!req.body.name){
         log.error('\nRequest body is incomplete');
         return res.status(200).send({
@@ -122,7 +122,7 @@ router.post('/testdrive', utility.verifyToken, vehicleExtractor, async (req, res
     return;
 });
 
-router.post('/checkin', utility.verifyToken, vehicleExtractor, async (req, res)=>{
+router.post('/checkin', utility.verifyToken, utility.checkLock, vehicleExtractor, async (req, res)=>{
     let currentLocation = {
         addressLine1: '918 McPhillips Street',
         addressLine2: '',
@@ -174,7 +174,7 @@ router.post('/checkin', utility.verifyToken, vehicleExtractor, async (req, res)=
     return;
 });
 
-router.post('/sell', utility.verifyToken, vehicleExtractor, async (req, res)=>{
+router.post('/sell', utility.verifyToken, utility.checkLock, vehicleExtractor, async (req, res)=>{
     let vehicle = req.vehicle;
     let lastModifiedBy = req.user.firstName + ' ' + req.user.lastName;
     let lastModifiedOn = {
@@ -218,7 +218,7 @@ router.post('/sell', utility.verifyToken, vehicleExtractor, async (req, res)=>{
     return;
 });
 
-router.post('/delete', utility.verifyToken, vehicleExtractor, async (req, res)=>{
+router.post('/delete', utility.verifyToken, utility.checkLock, vehicleExtractor, async (req, res)=>{
     let vehicle = req.vehicle;
     let mode = 0;
     if(vehicle.dealership.sold === true){
@@ -243,7 +243,7 @@ router.post('/delete', utility.verifyToken, vehicleExtractor, async (req, res)=>
     return;
 });
 
-router.get('/edit', utility.verifyToken, vehicleExtractor, async (req,res)=>{
+router.get('/edit', utility.verifyToken, utility.checkLock, vehicleExtractor, async (req,res)=>{
     let vehicle = req.vehicle;
 
     res.status(200).render('edit-inventory', {

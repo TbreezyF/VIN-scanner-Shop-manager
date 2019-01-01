@@ -28,10 +28,12 @@ $(document).ready(function(){
   var authRegex = /^[a-zA-Z0-9]+$/;
 
   function validateLoginData(data){
-    if(data.login_userName.length < 1 || !userNameRegex.test(data.login_userName)){
-      $('input[name="login_userName"]').after("<label class='error' for='login_userName' style='color:red !important;'>You have entered an invalid username format</label>");
-      $('input[name="login_userName"]').css('border-color', 'red');
-      return;
+    if(data.login_userName){
+      if(data.login_userName.length < 1 || !userNameRegex.test(data.login_userName)){
+        $('input[name="login_userName"]').after("<label class='error' for='login_userName' style='color:red !important;'>You have entered an invalid username format</label>");
+        $('input[name="login_userName"]').css('border-color', 'red');
+        return;
+      }
     }
 
     if(data.login_pass.length < 1 || !passRegex.test(data.login_pass)){
@@ -136,6 +138,9 @@ $(document).ready(function(){
         }
       });
       var data = $(this).serializeFormJSON();
+      if(!data.login_userName){
+        data.login_userName = $('input[name="login_userName"]').val();
+      }
       validateLoginData(data);
   });
 });

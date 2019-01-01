@@ -20,13 +20,13 @@ const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 /*START ROUTES*/
 
 
-router.get('/', utility.verifyToken, async(req, res)=>{
+router.get('/', utility.verifyToken, utility.checkLock, async(req, res)=>{
     return res.status(200).render('service-request', {
         user: req.user
     });
 });
 
-router.get('/records', utility.verifyToken, async(req,res)=>{
+router.get('/records', utility.verifyToken, utility.checkLock, async(req,res)=>{
     if(!req.user){
         return res.status(200).send({
             error: 'Cannot verify your identity'
@@ -49,7 +49,30 @@ router.get('/records', utility.verifyToken, async(req,res)=>{
     });
 });
 
-router.post('/request', utility.verifyToken, async (req, res)=>{
+router.get('/status', utility.verifyToken, utility.checkLock, async(req,res)=>{
+    if(!req.user){
+        return res.status(200).send({
+            error: 'Cannot verify your identity'
+        });
+    }
+
+    [err, records] = await resolve.to(service.getAll());
+
+    if(err || !records){
+        return res.status(200).render('service-status', {
+            message: '500 Internal Server Error. Try again or contact support if problem persists',
+            user: req.user
+        }); 
+    }
+
+    return res.status(200).render('service-status', {
+        user: req.user,
+        records: records,
+        message: null
+    });
+});
+
+router.post('/request', utility.verifyToken, utility.checkLock, async (req, res)=>{
     log.info('\nStarting a new service req...');
     let serviceRecord = {};
     if(!req.user){
@@ -108,7 +131,7 @@ router.post('/request', utility.verifyToken, async (req, res)=>{
     [err, updated] = await resolve.to(users.recentActivity(req.user, 'Started a service request (#' + req.query.serviceId + ')'));
 });
 
-router.post('/delete', utility.verifyToken, async(req,res)=>{
+router.post('/delete', utility.verifyToken, utility.checkLock, async(req,res)=>{
     if(!req.user){
         return res.status(200).send({
             error: 'Can not verify your Identity'
@@ -146,7 +169,7 @@ router.post('/delete', utility.verifyToken, async(req,res)=>{
 });
 
 
-router.post('/start', utility.verifyToken, async(req,res)=>{
+router.post('/start', utility.verifyToken, utility.checkLock, async(req,res)=>{
     if(!req.user){
         return res.status(200).send({
             error: 'Can not verify your Identity'
@@ -184,7 +207,7 @@ router.post('/start', utility.verifyToken, async(req,res)=>{
     return;
 });
 
-router.post('/stop', utility.verifyToken, async(req,res)=>{
+router.post('/stop', utility.verifyToken, utility.checkLock, async(req,res)=>{
     if(!req.user){
         return res.status(200).send({
             error: 'Can not verify your Identity'

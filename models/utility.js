@@ -28,6 +28,13 @@ module.exports = {
             return res.status(400).redirect('/'); 
         }
     },
+    checkLock: function(req, res, next){
+        if(req.user.locked){
+            return res.status(200).redirect('/lock');
+        }else{
+            return next();
+        }
+    },
     verifyLogin: function(req, res, next){
         if (req.cookies) {
             if (req.cookies.session) {

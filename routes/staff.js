@@ -14,7 +14,7 @@ const moment = require('moment');
 
 /*START ROUTES*/
 
-router.get('/', utility.verifyToken, async (req, res) => {
+router.get('/', utility.verifyToken, utility.checkLock, async (req, res) => {
     if(!req.user){
         return res.status(200).redirect('/');
     }
@@ -35,7 +35,7 @@ router.get('/', utility.verifyToken, async (req, res) => {
     });
 });
 
-router.post('/search', utility.verifyToken, async (req, res)=>{
+router.post('/search', utility.verifyToken, utility.checkLock, async (req, res)=>{
     if(!req.user){
         return res.status(200).send({
             message: 'Cannot verify your identity'
