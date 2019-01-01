@@ -116,7 +116,7 @@ router.get('/logout', utility.verifyToken, async (req, res) => {
 /*END ROUTES*/
 
 router.get('/view', utility.verifyToken, async (req, res)=>{
-    return res.status(200).render('../raw-views/index', {
+    return res.status(200).render('../archive/raw-views/widgets', {
         user: req.user
     });
 });

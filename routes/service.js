@@ -4,6 +4,7 @@ const path = require('path');
 const util = require('util');
 const users = require('../models/users.js');
 const inventory = require('../models/inventory.js');
+const kijii = require('../models/kijiji.js');
 const utility = require('../models/utility.js');
 const resolve = require('await-to-js');
 const log = require('../models/logger');
@@ -19,9 +20,10 @@ const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 
 
 router.get('/', utility.verifyToken, async(req, res)=>{
-    return res.status(200).render('checker', {
+    return res.status(200).render('pricechecker', {
         user: req.user
     });
 });
+
 
 module.exports = router;

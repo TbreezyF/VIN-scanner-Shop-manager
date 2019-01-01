@@ -8,7 +8,7 @@ const inventory = require('./routes/inventory');
 const profile = require('./routes/profile');
 const vehicle = require('./routes/vehicle');
 const staff = require('./routes/staff');
-const checker = require('./routes/checker');
+const pricechecker = require('./routes/pricechecker');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -34,7 +34,7 @@ app.use(cookieParser());
 app.use('/', index);
 app.use('/inventory', inventory);
 app.use('/vehicle', vehicle);
-app.use('/checker', checker);
+app.use('/pricechecker', pricechecker);
 app.use('/profile', profile);
 app.use('/staff', staff);
 

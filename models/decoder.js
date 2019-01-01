@@ -39,7 +39,7 @@ module.exports = {
         [err, response] = await resolve.to(request(options));
         if(err){
             //Decode Failed - Alert User
-            error = 'Autofill service unavailable. Try again later.';
+            error = 'Vin decoder service unavailable. Try again later.';
             return res.status(200).send({
                 error: error
             });
@@ -58,7 +58,7 @@ module.exports = {
     
         if(vehicleDataError){
             //Decode Failed - Alert User
-            error = 'Unable to decode VIN. Try again later.';
+            error = 'Unable to decode VIN. Try again later or try a different VIN.';
             return res.status(200).send({
                 error: error
             });

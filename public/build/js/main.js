@@ -9,6 +9,7 @@ window.userNameRegex = /^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/;
 window.passRegex = /^([a-zA-Z0-9@*#]{8,15})$/;
 window.authRegex = /^[a-zA-Z0-9]+$/;
 window.alphanumRegex2 = /^[a-zA-Z0-9\s.\-_+/\r\n]+$/;
+window.alphanumRegex = /^[a-zA-Z0-9\s.]+$/;
 window.phoneNumberRegex = /^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/;
 
 window.profilePic = {};
@@ -45,6 +46,12 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function handleScannedVinForPriceCheck(){
+    var vinNumber = $('#pricecheck-scanner-input').val();
+
+    //call server to return price
 }
 
 
@@ -387,6 +394,71 @@ $(document).ready(function(){
         });
     });
 
+    $('#priceCheckerSubmit').click(function(e){
+        e.preventDefault();
+        var data = $('#priceCheckerManualForm').serializeFormJSON();
+        $('.error').remove();
+        $('#manual-pricecheck-error').addClass('d-none');
+        $('#pricecheck-result-card').addClass('d-none');
+        $('#pricecheck-loader').addClass('d-none');
+        $('#pricecheck-waitText').addClass('d-none');
 
+        let invalid = false;
+        if(!alphanumRegex.test(data.make)){
+            invalid = true;
+            $('input[name="make"]').after("<label class='error' for='make' style='color:red !important;'>Please enter a valid vehicle make</label>");
+            $('input[name="make"]').css('border-color', 'red');
+        }
+        if(!alphanumRegex.test(data.model)){
+            invalid = true;
+            $('input[name="model"]').after("<label class='error' for='model' style='color:red !important;'>Please enter a valid vehicle model</label>");
+            $('input[name="model"]').css('border-color', 'red');
+        }
+        if(!Number(data.year) || data.year.length < 4 || data.year.length > 4){
+            invalid = true;
+            $('input[name="year"]').after("<label class='error' for='year' style='color:red !important;'>Enter a valid year (e.g 2004)</label>");
+            $('input[name="year"]').css('border-color', 'red');
+        }
+
+        $('input').each(function(){
+            if(($(this).next().length == 0)){
+              $(this).css('border-color', '#CCD0D7');
+            }
+          });
+
+        if(invalid){
+            return;
+        }
+
+          //Data is valid send to server
+          //show loader and hide everything else
+          $('#pricecheck-info').hide();
+          $('#pricecheck-loader').removeClass('d-none');
+          $('#pricecheck-waitText').removeClass('d-none');
+          var checked_url = 'https://www.kijiji.ca/b-cars-vehicles/winnipeg/' + data.year + '-' + data.make + '-' + data.model + '/k0c27l1700192?sort=priceAsc';
+          $.post('/pricechecker/getprice', data).done(function(response){
+            if(response.error){
+                $('#manual-pricecheck-error').text(response.error).removeClass('d-none');
+                return;
+            }
+            if(response.price){
+                $('#pricecheck-car-title').text(data.year + ' ' + data.make + ' ' + data.model);
+                if(response.price < 10000){
+                    var price = '$' + response.price.toString().substring(0, 1) + ',' + response.price.toString().substring(1, response.price.length);
+                    $('#pricecheck-price').text(price);
+                }else{
+                    var price = '$' + response.price.toString().substring(0, 2) + ',' + response.price.toString().substring(2, response.price.length);
+                    $('#pricecheck-price').text(price);
+                }
+                $('#pricecheck-link').attr('href', checked_url);
+                $('#pricecheck-result-card').removeClass('d-none');
+                $('#pricecheck-loader').addClass('d-none');
+                $('#pricecheck-waitText').addClass('d-none');
+                $('#pricecheck-info').show();
+            }
+            //Something weird happened
+          });
+        return;
+    });
     
 });

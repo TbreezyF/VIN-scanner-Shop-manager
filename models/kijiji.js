@@ -49,6 +49,12 @@ module.exports = {
             waitUntil: 'networkidle2'
         });
         
+        //reset local variables
+        priceArray = [];
+        lowestPrice = 0;
+        pageNumber = 1;
+        numPages = 1;
+
         //check for number of pages
         numPages = await page.evaluate(function(numPages, SECOND_PAGE_SELECTOR, THIRD_PAGE_SELECTOR){
             var nextPage = document.querySelector(SECOND_PAGE_SELECTOR);
@@ -63,7 +69,8 @@ module.exports = {
             }
             return numPages;
         }, numPages, SECOND_PAGE_SELECTOR, THIRD_PAGE_SELECTOR);
-        
+
+        log.info('Search depth (number of pages to scrape): ' + numPages + '\n');
         
         priceArray = await evaluatePage(page);
         

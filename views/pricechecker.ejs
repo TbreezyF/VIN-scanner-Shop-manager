@@ -1,0 +1,134 @@
+<%-include('partials/top')%>
+
+<!--Custom Style For Results Cars -->
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Float four columns side by side */
+.column {
+  padding: 0 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+</style>
+
+<!--END Custom Style For Results Cards-->
+<!-- page content -->
+<div class="right_col" role="main">
+    <!-- Start Body Content -->
+    <div class="main" role="main">
+        <div id="content" class="content full">
+            <div class="container">
+            <!--start loader-->
+            <p id="pricecheck-waitText" class="alert alert-info d-none">Please wait for server to respond. This may take a minute...</p>
+            <div class="d-none" id="pricecheck-loader" style="margin-left: 40% !important; margin-top: 35% !important;">
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+            <!--End loader-->
+            <!--Start result card-->
+          <div id="pricecheck-result-card" class="column d-none">
+            <div class="card">
+                <h3 id="pricecheck-car-title"></h3>
+                <label for="pricecheck-price">Lowest Price: </label><p style="color: #1ABB9C;" id="pricecheck-price"></p>
+                <label for="pricecheck-link">Results Page: </label><a href="#" id="pricecheck-link"> see results</a>
+            </div>
+          </div>
+          <br>
+          <br>
+        <!--End Results Card-->
+                <!--START BARCODE SCANNER HTML-->
+                <div id="pricecheck-info">
+                    <div class="row">
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input name="pricecheck-scanner-input" id="pricecheck-scanner-input" class="form-control" placeholder="SCAN VIN BARCODE" type="text" oninput="handleScannedVinForPriceCheck()" disabled/> 
+                            <div class="input-group-btn"> 
+                                <button id="scanner-button" class="btn btn-primary" type="button" data-toggle="modal" data-target="#livestream_scanner">START
+                                    <i class="fa fa-barcode"></i>
+                                </button> 
+                            </div>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+                    <br>
+                    <br>
+                    <h1>You can also enter Vehicle Detail</h1>
+                    <div class="clearfix"></div>
+                    <!--Manual Vehicle Data Entry -->
+                    <div class="alert alert-danger alert-dismissable d-none" id="manual-pricecheck-error">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                    </div>
+                    <form id="priceCheckerManualForm" method="POST">
+                        <div class="form-group">
+                            <label for="make">Make:</label>
+                            <input name="make" type="text" class="form-control" id="make" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model:</label>
+                            <input name="model" type="text" class="form-control" id="model" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Year:</label>
+                            <input name="year" type="text" class="form-control" id="year" required>
+                        </div>
+                        <button id="priceCheckerSubmit" type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <!--End Manual Vehicle Data Entry -->
+                    <div class="modal" id="livestream_scanner">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">VIN Number Scanner</h4>
+                            </div>
+                            <div class="modal-body" style="position: static">
+                                <div id="interactive" class="viewport"></div>
+                                <div class="error"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <label class="btn btn-default pull-left">
+                                    <i class="fa fa-camera"></i> Use photo library
+                                    <input name="vin_scan_photo_library" type="file" accept="image/*" capture="camera" class="hidden" />
+                                </label>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    <!--END BARCODE SCANNER HTML-->
+                </div>
+
+
+            </div>
+         </div>
+    </div>
+</div>
+
+
+<%-include('partials/bottom')%>
