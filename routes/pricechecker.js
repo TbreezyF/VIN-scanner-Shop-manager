@@ -86,7 +86,8 @@ router.post('/vin', utility.verifyToken, decoder.vin, async(req, res)=>{
     }
 
     return res.status(200).send({
-        price: price
+        price: price,
+        data: req.vehicleData
     });
 });
 

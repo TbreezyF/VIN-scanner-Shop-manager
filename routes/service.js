@@ -20,7 +20,7 @@ const vinNumberRegex3 = /^[^iIoOqQ'-]{10,17}$/;
 
 
 router.get('/', utility.verifyToken, async(req, res)=>{
-    return res.status(200).render('pricechecker', {
+    return res.status(200).render('service-request', {
         user: req.user
     });
 });

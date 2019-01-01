@@ -51,12 +51,19 @@ function getParameterByName(name, url) {
 function handleScannedVinForPriceCheck(){
     var vinNumber = $('#pricecheck-scanner-input').val();
 
+    $('#pricecheck-info').hide();
+    $('#pricecheck-loader').removeClass('d-none');
+    $('#pricecheck-waitText').removeClass('d-none');
+    $('#pricecheck-result-card').addClass('d-none');
+    
+
     $.post('/pricechecker/vin', {vinNumber: vinNumber}).done(function(response){
         if(response.error){
             $('#manual-pricecheck-error').text(response.error).removeClass('d-none');
             return;
         }
         if(response.price){
+            let data = response.data;
             $('#pricecheck-car-title').text(data.year + ' ' + data.make + ' ' + data.model);
             if(response.price < 10000){
                 var price = '$' + response.price.toString().substring(0, 1) + ',' + response.price.toString().substring(1, response.price.length);
@@ -65,6 +72,7 @@ function handleScannedVinForPriceCheck(){
                 var price = '$' + response.price.toString().substring(0, 2) + ',' + response.price.toString().substring(2, response.price.length);
                 $('#pricecheck-price').text(price);
             }
+            var checked_url = 'https://www.kijiji.ca/b-cars-vehicles/winnipeg/' + data.year + '-' + data.make + '-' + data.model + '/k0c27l1700192?sort=priceAsc';
             $('#pricecheck-link').attr('href', checked_url);
             $('#pricecheck-result-card').removeClass('d-none');
             $('#pricecheck-loader').addClass('d-none');

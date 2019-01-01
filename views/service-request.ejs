@@ -2,707 +2,711 @@
 
 <!-- page content -->
     <div class="right_col" role="main">
-
-
-    <h2>New Service Request</h2>
-    <!-- Tabs -->
-    <div id="wizard_verticle" class="form_wizard wizard_verticle">
-      <ul class="list-unstyled wizard_steps">
-        <li>
-          <a href="#step-11">
-            <span class="step_no">1</span>
-          </a>
-        </li>
-        <li>
-          <a href="#step-22">
-            <span class="step_no">2</span>
-          </a>
-        </li>
-        <li>
-          <a href="#step-33">
-            <span class="step_no">3</span>
-          </a>
-        </li>
-      </ul>
-
-      <div id="step-11">
-        <h2 class="StepTitle">Enter Service Details</h2>
-        <form class="form-horizontal form-label-left">
-
-          <span class="section">Customer Info</span>
-
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3" for="first-name">First Name <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="first-name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3" for="last-name">Last Name <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-              <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="middle-name" class="control-label col-md-3 col-sm-3">Middle Name / Initial</label>
-            <div class="col-md-6 col-sm-6">
-              <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Gender</label>
-            <div class="col-md-6 col-sm-6">
-              <div id="gender" class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                  <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                </label>
-                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                  <input type="radio" name="gender" value="female" checked=""> Female
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Phone Number <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-              <input id="service-phone" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="service-phone">
-            </div>
-          </div>
-
-        </form>
-        <!--End Step 1 -->
-      </div>
-      <div id="step-22">
-      <h2 class="StepTitle">Enter Service Details</h2>
-        <form class="form-horizontal form-label-left">
-
-            <span class="section">Vehicle Info</span>
-
-            <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3" for="car-make">Make <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-                <input type="text" id="car-make" required="required" class="form-control col-md-7 col-xs-12" name="car-make">
-            </div>
-            </div>
-            <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3" for="car-model">Model <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-                <input type="text" id="car-model" name="car-model" required="required" class="form-control col-md-7 col-xs-12">
-            </div>
-            </div>
-            <div class="form-group">
-            <label for="car-year" class="control-label col-md-3 col-sm-3">Year <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-                <input id="car-year" class="form-control col-md-7 col-xs-12" type="text" name="car-year">
-            </div>
-            </div>
-            <div class="form-group">
-            <label for="car-license-plate" class="control-label col-md-3 col-sm-3">License Plate <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-                <input id="car-license-plate" name="car-license-plate" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-            </div>
-            </div>
-
-        </form> 
-        <!--End Step 2 -->      
-      </div>
-      <div id="step-33">
-                <div id="service-form" class="wide-form">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Select Service</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                                <!-- Place Service List Here -->
-                                <div id='combined-services'>
-                                <div id='combined-search-region'></div>
-                                <a class='services-list-toggle' href='#'>
-                                <span class='collapsed-text'>
-                                Or, select your service by category
-                                <i class='toggle-services-icon fa fa-chevron-down'></i>
-                                </span>
-                                <span class='expanded-text'>
-                                Collapse service list
-                                <i class='toggle-services-icon fa fa-chevron-up'></i>
-                                </span>
-                                </a>
-                                <div class='panel-group panel-group-services' id='choose-service-panel' role='tablist'>
-                                <div class='panel maintenance-panel'>
-                                <div class='panel-heading'>
-                                <h2 class='panel-title'>
-                                <a class='service-title maintenance collapsed' href='#services/maintenance' id='maintenance-link'>
-                                <span class='mileage'>
-                                120,000
-                                </span>
-                                Mile Maintenance
-                                <span class='disabled-text'>
-                                <em>
-                                <strong>(requires engine and trim)</strong>
-                                </em>
-                                </span>
-                                </a>
-                                </h2>
+        <div class="main" role="main">
+            <div id="content" class="content full">
+                <div class="container">
+                    <div id="smartwizard">
+                    <ul>
+                        <li><a id="nav-step-1" href="#step-1">Service Details<br /><small>Customer Information</small></a></li>
+                        <li><a id="nav-step-2" href="#step-2">Service Details<br /><small>Vehicle Information</small></a></li>
+                        <li><a id="nav-step-3" href="#step-3">Service Type<br /><small>Select Service</small></a></li>
+                    </ul>
+                
+                    <div>
+                        <div id="step-1" class="">
+                            <h2 class="StepTitle">Enter Service Details</h2>
+                            <form id="service-step-1" class="form-horizontal form-label-left">
+                    
+                            <span class="section">Customer Info</span>
+                    
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3" for="first-name">First Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="firstName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3" for="last-name">Last Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                <input type="text" id="last-name" name="lastName" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="middle-name" class="control-label col-md-3 col-sm-3">Middle Name / Initial</label>
+                                <div class="col-md-6 col-sm-6">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middleName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3">Gender</label>
+                                <div class="col-md-6 col-sm-6">
+                                <div id="gender" class="btn-group" data-toggle="buttons">
+                                    <label id="service-male-gender" class="btn btn-default">
+                                    <input type="radio" name="genderMale" value="male"> &nbsp; Male &nbsp;
+                                    </label>
+                                    <label id="service-female-gender" class="btn btn-primary">
+                                    <input type="radio" name="genderFemale" value="female" checked=""> Female
+                                    </label>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3">Phone Number <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                <input id="service-phone" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="servicePhone">
+                                </div>
+                            </div>
+                    
+                            </form>
+                            <!--End Step 1 -->
+                        </div>
+                        <div id="step-2" class="">
+                            <h2 class="StepTitle">Enter Service Details</h2>
+                            <form id="service-step-2" class="form-horizontal form-label-left">
+                    
+                                <span class="section">Vehicle Info</span>
+                    
+                                <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3" for="car-make">Make <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="car-make" required="required" class="form-control col-md-7 col-xs-12" name="carMake">
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3" for="car-model">Model <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="car-model" name="carModel" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="car-year" class="control-label col-md-3 col-sm-3">Year <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input id="car-year" class="form-control col-md-7 col-xs-12" type="text" name="carYear">
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="car-trim" class="control-label col-md-3 col-sm-3">Trim <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input id="car-trim" class="form-control col-md-7 col-xs-12" type="text" name="carTrim">
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="car-license-plate" class="control-label col-md-3 col-sm-3">License Plate <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input id="car-license-plate" name="licensePlate" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                </div>
                                 </div>
-                                </div>
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title diagnosis collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#diagnosis-collapse' role='button'>
-                                <span>
-                                Diagnosis/Describe Problem
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='diagnosis-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' href='#services/interview/wont-start'>
-                                Vehicle will not start
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='571' href='#services/571/interview/sound'>
-                                Noises
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='571' href='#services/571/interview/feel'>
-                                Vibrations
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/see'>
-                                See a problem
-                                </a>
-                                <br>
-                                </div>
-                                <div class='col-md-6 right'>
-                                <a class='service-link' href='#services/interview/smell'>
-                                Odor / Smell
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/warning-light'>
-                                Dashboard service light
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='571' href='#services/571/notes'>
-                                I'm not sure
-                                </a>
-                                <br>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title ac-heating collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#ac-heating-collapse' role='button'>
-                                <span>
-                                AC / Heating
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='ac-heating-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' data-service-id='252' href='#services/252/notes'>
-                                AC inspection: test for leaks, fluid levels
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='259' href='#services/259/notes'>
-                                AC system recharge
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='249' href='#services/249/notes'>
-                                AC compressor replacement
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='251' href='#services/251/notes'>
-                                AC condenser replacement
-                                </a>
-                                <br>
-                                </div>
-                                <div class='col-md-6 right'>
-                                <a class='service-link' data-service-id='268' href='#services/268/notes'>
-                                Heater core replacement
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='265' href='#services/265/notes'>
-                                Heater blower motor replacement
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='266' href='#services/266/notes'>
-                                Heater blower motor resistor replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/search'>
-                                Other
-                                </a>
-                                <br>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title brakes collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#brakes-collapse' role='button'>
-                                <span>
-                                Brakes
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='brakes-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' href='#services/interview/brake-pads'>
-                                Pad Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-rotors'>
-                                Pad and rotor replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes'>
-                                Shoe replacement
-                                </a>
-                                </div>
-                                <div class='col-md-6 right'>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Shoe and drum replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/search'>
-                                Other
-                                </a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title electrical collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#electrical-collapse' role='button'>
-                                <span>
-                                Electrical
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='electrical-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' href='#services/interview/brake-pads'>
-                                ABS Controle Module - Replace
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-rotors'>
-                                Backup Lamp Switch - Replace
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes'>
-                                Battery Replacement
-                                </a>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Brake Light Switch - Replace
-                                </a>
-                                </div>
-                                <div class='col-md-6 right'>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Multi-Function Switch Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/search'>
-                                Turn Signal Switch Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Window Switch Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Windshield Washer Fluid Level Sensor Replacement
-                                </a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title engine collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#engine-collapse' role='button'>
-                                <span>
-                                Engine
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='engine-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6'>
-                                <a class='service-link' data-service-id='10410' href='#services/interview/obd-code'>
-                                Diagnostic Code Error
-                                </a>
-                                </div>
-                                <div class='col-md-6'>
-                                <a class='service-link' data-service-id='169' href='#services/169/notes'>
-                                Check Engine Light
-                                </a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title exhaust collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#exhaust-collapse' role='button'>
-                                <span>
-                                Exhaust
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='exhaust-collapse' role='tabpanel'>
-                                <div class='panel-body service-container' data-category-id='8'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Exhaust Manifold Gasket Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Exhaust Manifold Replacement
-                                </a>
-                                <br>
-                                </div>
-                                <div class='col-md-6 right'>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Exhaust Muffler Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Exhaust Pipe Replacement
-                                </a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title fluids collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#fluids-collapse' role='button'>
-                                <span>
-                                Fluids
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='fluids-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' data-service-id='286' href='#services/286/notes'>
-                                Brake system fluid flush
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='902' href='#services/902/notes'>
-                                Coolant / antifreeze system flush
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='16' href='#services/16/notes'>
-                                Conventional Oil
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='291' href='#services/291/notes'>
-                                Differential fluid service
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='1821' href='#services/1821/notes'>
-                                Inspect all vehicle fluid levels
-                                </a>
-                                <br>
-                                </div>
-                                <div class='col-md-6 right'>
-                                <a class='service-link' data-service-id='573' href='#services/573/notes'>
-                                Power steering system fluid flush
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='312' href='#services/312/notes'>
-                                Transmission fluid flush
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='1014' href='#services/1014/notes'>
-                                Synthetic Blend / High Mileage
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='282' href='#services/282/notes'>
-                                Synthetic Oil
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/search'>
-                                Other
-                                </a>
-                                <br>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title steering collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#steering-collapse' role='button'>
-                                <span>
-                                Steering/Suspension
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='steering-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6'>
-                                <a class='service-link' data-service-id='421' href='#services/421/notes'>
-                                Wheel alignment
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='82' href='#services/82/notes'>
-                                Steering and suspension diagnosis
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/ball-joint-location'>
-                                Ball joint replacement
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='378' href='#services/378/interview/struts'>
-                                Strut assembly replacement
-                                </a>
-                                <br>
-                                </div>
-                                <div class='col-md-6'>
-                                <a class='service-link' data-service-id='376' href='#services/376/interview/steering'>
-                                Shock absorber replacement
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='374' href='#services/374/notes'>
-                                Power steering pump replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/search'>
-                                Other
-                                </a>
-                                <br>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title tires collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#tires-collapse' role='button'>
-                                <span>
-                                Tires
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='tires-collapse' role='tabpanel'>
-                                <div class='panel-body service-container'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' href='#services/interview/tire-repair'>
-                                Tire repair
-                                </a>
-                                <br>
-                                <a class='service-link' data-service-id='421' href='#services/421/notes'>
-                                Wheel alignment
-                                </a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class='panel'>
-                                <div class='panel-heading' role='tab'>
-                                <h2 class='panel-title'>
-                                <a class='service-title transmission collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#transmission-collapse' role='button'>
-                                <span>
-                                Transmission
-                                </span>
-                                </a>
-                                </h2>
-                                </div>
-                                <div class='panel-collapse collapse' id='transmission-collapse' role='tabpanel'>
-                                <div class='panel-body service-container' data-category-id='14'>
-                                <div class='row'>
-                                <div class='col-md-6 left'>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Axle Shaft Oil Seal Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Axle Shaft Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Clutch Cable Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Clutch is slipping (manual transmission diagnosis)
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Clutch Master Cylinder Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Clutch Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Clutch Slave Cylinder Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                CV Axle Shaft Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                CV Boot Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                CV Joint / Axle Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Driveshaft Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Flywheel Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Front Driveshaft Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Front-End Wheel Bearing Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Inspect U-Joints
-                                </a>
-                                <br>
-                                </div>
-                                <div class='col-md-6 right'>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Pinion Seal Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Rear Driveshaft Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Replace transmission cooler lines
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Transfer case fluid replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Transmission Fluid and Filter Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Transmission Fluid Change
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Transmission Fluid Flush
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Transmission is slipping - automatic (Transmission diagnosis)
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                U-Joint Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Universal Joint Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Vehicle jerks while in drive or between changes of gears (Automatic Transmission Diagnosis)
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Wheel Bearing Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Wheel Hub and Bearing Assembly Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Wheel Hub and Bearing Replacement
-                                </a>
-                                <br>
-                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
-                                Wheel Hub Replacement
-                                </a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                </div>
-                            
+                    
+                            </form> 
+                            <!--End Step 2 -->  
+                        </div>
+                        <div id="step-3" class="">
+                                <div style="text-align: center;" class="alert alert-danger alert-dismissable d-none" id="service-selection-error">
+                                    <a class="panel-close close" data-dismiss="alert">×</a>
+                                </div>
+                                <div id="service-form" class="wide-form">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Select Service</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                                <!-- Place Service List Here -->
+                                                <div id='combined-services'>
+                                                <div id='combined-search-region'></div>
+                                                <a class='services-list-toggle' href='#'>
+                                                <span class='collapsed-text'>
+                                                Or, select your service by category
+                                                <i class='toggle-services-icon fa fa-chevron-down'></i>
+                                                </span>
+                                                <span class='expanded-text'>
+                                                Collapse service list
+                                                <i class='toggle-services-icon fa fa-chevron-up'></i>
+                                                </span>
+                                                </a>
+                                                <div class='panel-group panel-group-services' id='choose-service-panel' role='tablist'>
+                                                <div class='panel maintenance-panel'>
+                                                <div class='panel-heading'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title maintenance collapsed' href='#services/maintenance' id='maintenance-link'>
+                                                <span class='mileage'>
+                                                120,000
+                                                </span>
+                                                Mile Maintenance
+                                                <span class='disabled-text'>
+                                                <em>
+                                                <strong>(requires engine and trim)</strong>
+                                                </em>
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                </div>
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title diagnosis collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#diagnosis-collapse' role='button'>
+                                                <span>
+                                                Diagnosis/Describe Problem
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='diagnosis-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' href='#services/interview/wont-start'>
+                                                Vehicle will not start
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='571' href='#services/571/interview/sound'>
+                                                Noises
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='571' href='#services/571/interview/feel'>
+                                                Vibrations
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/see'>
+                                                See a problem
+                                                </a>
+                                                <br>
+                                                </div>
+                                                <div class='col-md-6 right'>
+                                                <a class='service-link' href='#services/interview/smell'>
+                                                Odor / Smell
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/warning-light'>
+                                                Dashboard service light
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='571' href='#services/571/notes'>
+                                                I'm not sure
+                                                </a>
+                                                <br>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title ac-heating collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#ac-heating-collapse' role='button'>
+                                                <span>
+                                                AC / Heating
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='ac-heating-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' data-service-id='252' href='#services/252/notes'>
+                                                AC inspection: test for leaks, fluid levels
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='259' href='#services/259/notes'>
+                                                AC system recharge
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='249' href='#services/249/notes'>
+                                                AC compressor replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='251' href='#services/251/notes'>
+                                                AC condenser replacement
+                                                </a>
+                                                <br>
+                                                </div>
+                                                <div class='col-md-6 right'>
+                                                <a class='service-link' data-service-id='268' href='#services/268/notes'>
+                                                Heater core replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='265' href='#services/265/notes'>
+                                                Heater blower motor replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='266' href='#services/266/notes'>
+                                                Heater blower motor resistor replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/search'>
+                                                Other
+                                                </a>
+                                                <br>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title brakes collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#brakes-collapse' role='button'>
+                                                <span>
+                                                Brakes
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='brakes-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' href='#services/interview/brake-pads'>
+                                                Pad Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-rotors'>
+                                                Pad and rotor replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes'>
+                                                Shoe replacement
+                                                </a>
+                                                </div>
+                                                <div class='col-md-6 right'>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Shoe and drum replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/search'>
+                                                Other
+                                                </a>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title electrical collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#electrical-collapse' role='button'>
+                                                <span>
+                                                Electrical
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='electrical-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' href='#services/interview/brake-pads'>
+                                                ABS Controle Module - Replace
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-rotors'>
+                                                Backup Lamp Switch - Replace
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes'>
+                                                Battery Replacement
+                                                </a>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Brake Light Switch - Replace
+                                                </a>
+                                                </div>
+                                                <div class='col-md-6 right'>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Multi-Function Switch Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/search'>
+                                                Turn Signal Switch Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Window Switch Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Windshield Washer Fluid Level Sensor Replacement
+                                                </a>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title engine collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#engine-collapse' role='button'>
+                                                <span>
+                                                Engine
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='engine-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6'>
+                                                <a class='service-link' data-service-id='10410' href='#services/interview/obd-code'>
+                                                Diagnostic Code Error
+                                                </a>
+                                                </div>
+                                                <div class='col-md-6'>
+                                                <a class='service-link' data-service-id='169' href='#services/169/notes'>
+                                                Check Engine Light
+                                                </a>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title exhaust collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#exhaust-collapse' role='button'>
+                                                <span>
+                                                Exhaust
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='exhaust-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container' data-category-id='8'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Exhaust Manifold Gasket Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Exhaust Manifold Replacement
+                                                </a>
+                                                <br>
+                                                </div>
+                                                <div class='col-md-6 right'>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Exhaust Muffler Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Exhaust Pipe Replacement
+                                                </a>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title fluids collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#fluids-collapse' role='button'>
+                                                <span>
+                                                Fluids
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='fluids-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' data-service-id='286' href='#services/286/notes'>
+                                                Brake system fluid flush
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='902' href='#services/902/notes'>
+                                                Coolant / antifreeze system flush
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='16' href='#services/16/notes'>
+                                                Conventional Oil
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='291' href='#services/291/notes'>
+                                                Differential fluid service
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='1821' href='#services/1821/notes'>
+                                                Inspect all vehicle fluid levels
+                                                </a>
+                                                <br>
+                                                </div>
+                                                <div class='col-md-6 right'>
+                                                <a class='service-link' data-service-id='573' href='#services/573/notes'>
+                                                Power steering system fluid flush
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='312' href='#services/312/notes'>
+                                                Transmission fluid flush
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='1014' href='#services/1014/notes'>
+                                                Synthetic Blend / High Mileage
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='282' href='#services/282/notes'>
+                                                Synthetic Oil
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/search'>
+                                                Other
+                                                </a>
+                                                <br>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title steering collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#steering-collapse' role='button'>
+                                                <span>
+                                                Steering/Suspension
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='steering-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6'>
+                                                <a class='service-link' data-service-id='421' href='#services/421/notes'>
+                                                Wheel alignment
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='82' href='#services/82/notes'>
+                                                Steering and suspension diagnosis
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/ball-joint-location'>
+                                                Ball joint replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='378' href='#services/378/interview/struts'>
+                                                Strut assembly replacement
+                                                </a>
+                                                <br>
+                                                </div>
+                                                <div class='col-md-6'>
+                                                <a class='service-link' data-service-id='376' href='#services/376/interview/steering'>
+                                                Shock absorber replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='374' href='#services/374/notes'>
+                                                Power steering pump replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/search'>
+                                                Other
+                                                </a>
+                                                <br>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title tires collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#tires-collapse' role='button'>
+                                                <span>
+                                                Tires
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='tires-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' href='#services/interview/tire-repair'>
+                                                Tire repair
+                                                </a>
+                                                <br>
+                                                <a class='service-link' data-service-id='421' href='#services/421/notes'>
+                                                Wheel alignment
+                                                </a>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div class='panel'>
+                                                <div class='panel-heading' role='tab'>
+                                                <h2 class='panel-title'>
+                                                <a class='service-title transmission collapsed' data-parent='#choose-service-panel' data-toggle='collapse' href='#transmission-collapse' role='button'>
+                                                <span>
+                                                Transmission
+                                                </span>
+                                                </a>
+                                                </h2>
+                                                </div>
+                                                <div class='panel-collapse collapse' id='transmission-collapse' role='tabpanel'>
+                                                <div class='panel-body service-container' data-category-id='14'>
+                                                <div class='row'>
+                                                <div class='col-md-6 left'>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Axle Shaft Oil Seal Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Axle Shaft Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Clutch Cable Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Clutch is slipping (manual transmission diagnosis)
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Clutch Master Cylinder Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Clutch Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Clutch Slave Cylinder Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                CV Axle Shaft Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                CV Boot Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                CV Joint / Axle Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Driveshaft Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Flywheel Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Front Driveshaft Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Front-End Wheel Bearing Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Inspect U-Joints
+                                                </a>
+                                                <br>
+                                                </div>
+                                                <div class='col-md-6 right'>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Pinion Seal Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Rear Driveshaft Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Replace transmission cooler lines
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Transfer case fluid replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Transmission Fluid and Filter Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Transmission Fluid Change
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Transmission Fluid Flush
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Transmission is slipping - automatic (Transmission diagnosis)
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                U-Joint Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Universal Joint Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Vehicle jerks while in drive or between changes of gears (Automatic Transmission Diagnosis)
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Wheel Bearing Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Wheel Hub and Bearing Assembly Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Wheel Hub and Bearing Replacement
+                                                </a>
+                                                <br>
+                                                <a class='service-link' href='#services/interview/brake-shoes-drums'>
+                                                Wheel Hub Replacement
+                                                </a>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                </div>
+                                            
+                                    </div>
+                                </div>
+                            </div> 
+                            <!--End Step 3 -->
+                        </div>
+                        <div id="step-4" class="">
+                            Step Content
+                        </div>
                     </div>
                 </div>
-            </div> 
-            <!--End Step 3 -->
-          
-      </div>
-        
+
+            </div>
+
+         </div>
     </div>
-    <!-- End SmartWizard Content -->
-    </div>
+</div>
 <!-- End Page Content -->
 
 <%- include('partials/bottom'); %>
