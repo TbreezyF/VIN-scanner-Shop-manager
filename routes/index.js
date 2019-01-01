@@ -94,14 +94,22 @@ router.get('/dashboard', utility.verifyToken, async (req, res) => {
         return res.status(200).redirect('/');
     }
 
+    let serviceRecords = await service.getAll();
+    let vehiclesInBay = 0;
+
+    for(var i=0; i<serviceRecords.length; i++){
+        if(serviceRecords[i].inBay){
+            vehiclesInBay +=1;
+        }
+    }
     return res.status(200).render('dashboard', {
         user: req.user,
-        serviceRecords: 10,
-        totalUsers: await users.getLength(),
-        totalVehicles: await inventory.getLength(0),
-        totalSoldVehicles: await inventory.getLength(1),
-        totalServiceRecords: 15,
-        totalVehiclesInBay: 3
+        totalUsers: await users.getLength() || 0,
+        totalVehicles: await inventory.getLength(0) || 0,
+        totalSoldVehicles: await inventory.getLength(1) || 0,
+        totalServiceRecords: await service.getLength() || 0,
+        totalVehiclesInBay: vehiclesInBay,
+        records: serviceRecords
     });
 });
 

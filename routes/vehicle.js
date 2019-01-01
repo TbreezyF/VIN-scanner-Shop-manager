@@ -228,7 +228,7 @@ router.post('/delete', utility.verifyToken, vehicleExtractor, async (req, res)=>
     [delErr, delRes] = await resolve.to(inventory.delete(vehicle.stockNo, mode));
 
     if(delErr || !delRes){
-        log.error('DB Delete Error: ' + err);
+        log.error('DB Delete Error: ' + delErr);
         return res.status(200).send({
             error: 'SERVER ERROR: Try again later or contact support'
         });

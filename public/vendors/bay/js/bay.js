@@ -8,7 +8,12 @@ window.alphanumRegex2 = /^[a-zA-Z0-9\s.\-_+/\r\n]+$/;
 window.alphanumRegex = /^[a-zA-Z0-9\s.]+$/;
 window.phoneNumberRegex = /^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/;
 window.serviceList = [];
+window.timeEstimate = [];
 window.invalid = false;
+window.deleteId = null;
+window.startId = null;
+window.updateId = null;
+window.stopId = null;
 
 
 $(document).ready(function(){
@@ -80,7 +85,7 @@ $(document).ready(function(){
         contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
         disabledSteps: [],    // Array Steps disabled
         errorSteps: [],    // Highlight step with errors
-        theme: 'circles',
+        theme: 'dots',
         transitionEffect: 'fade', // Effect on navigation, none/slide/fade
         transitionSpeed: '400'
   });
@@ -120,8 +125,6 @@ $(document).ready(function(){
 
         //validateForm
         //validate form step one
-
-        console.log(formStepOne);
         if(!nameRegex.test(formStepOne.firstName) || formStepOne.firstName.length < 3){
             invalid = true;
             $('input[name="firstName"]').after("<label class='error' style='color:red !important;'>First name contains invalid characters</label>");
@@ -151,7 +154,6 @@ $(document).ready(function(){
             return;
         }
 
-        console.log(formStepTwo)
         //Validate form step 2
         if(!alphanumRegex2.test(formStepTwo.carMake)){
             invalid = true;
@@ -200,18 +202,108 @@ $(document).ready(function(){
 
         //Send details to server;
 
-        $.post('/service/request', {
-            formOne: formStepOne,
-            formTwo: formStepTwo,
-            serviceList: serviceList
-        }).done(function(response){
-            if(response.error){
-                //handle error
-            }
-            if(response.success){
-                //handle success
-            }
-            //something weird happened
-        });
+        $('#service-time-estimate').modal('show');
+
+        $('#service-form-complete').click(function(e){
+            $('#service-time-estimate').modal('hide');
+            timeEstimate[0] = $('input[name="serviceHours"]').val();
+            timeEstimate[1] = $('input[name="serviceMinutes"]').val();
+
+            //show loader
+            //send info to server
+            $('#service-content').hide();
+            $('#service-form-loader').removeClass('d-none');
+
+            
+            $.post('/service/request', {
+                formOne: formStepOne,
+                formTwo: formStepTwo,
+                serviceList: serviceList,
+                timeEstimate: timeEstimate
+            }).done(function(response){
+                if(response.error){
+                    $('#service-selection-error').removeClass('d-none').text(response.error);
+                    $('#service-form-loader').addClass('d-none');
+                    $('#service-content').show();
+                    return;
+                }
+                if(response.success){
+                    window.location = '/service/records';
+                    return;
+                }
+                //something weird happened
+                $('#service-selection-error').removeClass('d-none').text('An unexpected error occured. Please try again or contact support');
+                $('#service-form-loader').addClass('d-none');
+                $('#service-content').show();
+                return;
+            });
+            
+         });
      }//End Service Request Submit
+
+     $('#delete').on('show.bs.modal', function(e){
+        $('#delete-record-error').addClass('d-none')
+        deleteId = $(e.relatedTarget).data('delete');
+     });
+
+     $('#start').on('show.bs.modal', function(e){
+        $('#start-request-error').addClass('d-none')
+        startId = $(e.relatedTarget).data('start');
+     });
+
+     $('#stop').on('show.bs.modal', function(e){
+        $('#stop-request-error').addClass('d-none')
+        stopId = $(e.relatedTarget).data('stop');
+     });
+
+
+
+     $('#delete-service-record').click(function(e){
+        if(deleteId){
+            $.post('/service/delete?serviceId=' + deleteId, {}).done(function(response){
+                if(response.error){
+                    $('#delete-record-error').removeClass('d-none').text(response.error);
+                }
+                if(response.success){
+                    window.location.reload(true);
+                }
+            })
+        }else{
+            //show error
+            $('#delete-record-error').removeClass('d-none').text('Unable to determine the ID of the record to delete. Try again or contact support');
+        }
+     });
+
+     $('#start-service-request').click(function(e){
+        if(startId){
+            var notes = $('#service-record-notes').val();
+            $.post('/service/start?serviceId=' + startId, {notes: notes}).done(function(response){
+                if(response.error){
+                    $('#start-request-error').removeClass('d-none').text(response.error);
+                }
+                if(response.success){
+                    window.location.reload(true);
+                }
+            })
+        }else{
+            //show error
+            $('#start-request-error').removeClass('d-none').text('Unable to determine the ID of the service request. You may try again or inform an Admin of this error.');
+        }
+     });
+
+     $('#stop-service-request').click(function(e){
+        if(stopId){
+            $.post('/service/stop?serviceId=' + stopId, {}).done(function(response){
+                if(response.error){
+                    $('#stop-request-error').removeClass('d-none').text(response.error);
+                }
+                if(response.success){
+                    window.location.reload(true);
+                }
+            })
+        }else{
+            //show error
+            $('#stop-request-error').removeClass('d-none').text('Unable to determine the ID of the service request. You may try again or inform an Admin of this error.');
+        }
+     });
 });
