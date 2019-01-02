@@ -489,6 +489,7 @@ $(document).ready(function(){
                 $('#pricecheck-loader').addClass('d-none');
                 $('#pricecheck-waitText').addClass('d-none');
                 $('#pricecheck-info').show();
+                return;
             }
             //Something weird happened
             $('#manual-pricecheck-error').text('An unexpected error occured. Try again or contact support.').removeClass('d-none');
